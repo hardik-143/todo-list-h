@@ -1,66 +1,55 @@
 import React from "react";
+import { useRef } from "react";
 import { useAppContext } from "../AppContext";
+import useAutosizeTextArea from "../utils/useAutosizeTextarea";
+
+const $ = require("jquery");
 
 const Wrapper = () => {
-  const { isEditing, setValue, value, addTask, editTask, cancelEditing } =
-    useAppContext();
+  const {
+    setValue,
+    value,
+    addTask,
+    inpfocus,
+    setInpfocus,
+  } = useAppContext();
+  const inputElement = useRef();
+  useAutosizeTextArea(inputElement.current, value);
   const changeValue = (e) => {
     setValue(e.target.value);
   };
+  const inpBlurred = () => {
+    setValue($(inputElement.current).val());
+    setInpfocus(false);
+    if (value.length > 0) {
+      addTask(2);
+    }
+  };
   return (
     <div className="wrapper">
-      <h2 className="mb-3">{`${isEditing ? "Edit task" : "Create task"}`}</h2>
       <div className="inputWrapper">
-        <input
-          type="text"
+        <textarea
           value={value}
-          name="task"
-          id="newTask"
+          className={'noteInput'}
           onInput={(e) => changeValue(e)}
+          onFocus={() => setInpfocus(true)}
+          onBlur={() => inpBlurred()}
+          placeholder="Make a note"
           autoComplete="off"
-          onKeyPress={(e) => {
-            if (e.which === 13 && value ) {
-              if (isEditing) {
-                editTask()
-              }else{
-                addTask();
-              }
-            }
+          ref={inputElement}
+        ></textarea>
+      </div>
+      <div className={`buttons-wrapper ${inpfocus ? "show" : ""}`}>
+        <button
+          type="submit"
+          className="button"
+          onClick={() => {
+            addTask(1);
           }}
-        />
-        <div className="underline"></div>
-        {isEditing ? (
-          <>
-            <button
-              className="button"
-              onClick={() => {
-                editTask();
-              }}
-              disabled={value ? false : true}
-            >
-              update
-            </button>
-            <button
-              className="button cancel"
-              onClick={() => {
-                cancelEditing();
-              }}
-            >
-              cancel
-            </button>
-          </>
-        ) : (
-          <button
-            type="submit"
-            className="button"
-            onClick={() => {
-              addTask();
-            }}
-            disabled={value ? false : true}
-          >
-            create
-          </button>
-        )}
+          disabled={value ? false : true}
+        >
+          create
+        </button>
       </div>
     </div>
   );

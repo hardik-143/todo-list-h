@@ -1,0 +1,104 @@
+
+
+.edit-modal {
+  position: fixed;
+  display: table;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  z-index: 1;
+  &.show {
+    transform: scale(1);
+    .edit-modal-background {
+      background: rgba(0, 0, 0, 0);
+      animation: fadeIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      .edit-modal-body {
+        opacity: 0;
+        animation: scaleUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      }
+    }
+    &.out {
+      animation: quickScaleDown 0s 0.4s linear forwards;
+      .edit-modal-background {
+        animation: fadeOut 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        .edit-modal-body {
+          animation: scaleDown 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+      }
+    }
+  }
+}
+.edit-modal-background {
+  display: table-cell;
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  vertical-align: middle;
+  .edit-modal-body {
+    background: #fff;
+    width: calc(100% - 20px);
+    max-width: 500px;
+    border-radius: 5px;
+    padding: 1rem 15px;
+    position: absolute;
+    .buttons-wrapper{
+        padding: 10px 0 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    background: rgba(0, 0, 0, 0);
+  }
+  100% {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translate(-50%,-50%);
+    width: calc(100% - 20px);
+    left: 50%;
+    top: 50%;
+    opacity: 1;
+  }
+}
+@keyframes quickScaleDown {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  
+@keyframes fadeOut {
+  0% {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  100% {
+    background: rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+    transform: scale(1) translate(-50%,-50%);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8) translatex(-50%) translateY(1000px);
+    opacity: 0;
+  }
+}

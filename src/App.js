@@ -1,3 +1,4 @@
+import EditModal from "./components/EditModal";
 import Tasks from "./components/Tasks";
 import Wrapper from "./components/Wrapper";
 function App() {
@@ -5,6 +6,7 @@ function App() {
     <>
       <Wrapper />
       <Tasks/>
+      <EditModal/>
     </>
   );
 }

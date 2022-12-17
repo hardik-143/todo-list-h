@@ -1,11 +1,18 @@
 import React, { useState, useContext } from "react";
 const AppContext = React.createContext();
+const $ = require("jquery");
 const AppProvider = ({ children }) => {
-  const [allTasks, setAllTasks] = useState([]);
+  const [allNotes, setAllNotes] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState("");
-  const [previewTasks, setPreviewTasks] = useState([]);
+  const [editValue, setEditValue] = useState("");
   const [editID, setEditId] = useState("");
+  const [inpfocus, setInpfocus] = useState(false);
+  const [modalPos, setModalPos] = useState({
+    top: 0,
+    left: 0,
+  });
+
   const UpdateLocalStorage = (obj) => {
     let items = JSON.parse(localStorage.getItem("tasks"));
     if (items) {
@@ -18,25 +25,19 @@ const AppProvider = ({ children }) => {
   const getPreviousData = () => {
     let items = JSON.parse(localStorage.getItem("tasks"));
     if (items) {
-      setAllTasks(items);
-      setPreviewTasks(items);
+      setAllNotes(items);
     }
   };
-  const addTask = () => {
-    let isExist = allTasks.find((ele) => ele.task === value);
-    if (isExist) {
-      alert("exist");
-      return false;
-    }
+  const addTask = (calledFrom) => {
+    // calledFrom
+    // 1 create button
+    // 2 document click
     let obj = {
       id: new Date(),
       task: value,
-      isIMP: false,
+      isPinned: false,
     };
-    setAllTasks((prev) => {
-      return [...prev, obj];
-    });
-    setPreviewTasks((prev) => {
+    setAllNotes((prev) => {
       return [...prev, obj];
     });
     UpdateLocalStorage(obj);
@@ -44,46 +45,49 @@ const AppProvider = ({ children }) => {
   };
   const deleteTask = (id) => {
     cancelEditing();
-    let obj = allTasks.filter((ele) => ele.id !== id)
-    setAllTasks(obj);
-    setPreviewTasks(obj);
+    let obj = allNotes.filter((ele) => ele.id !== id);
+    setAllNotes(obj);
     localStorage.setItem("tasks", JSON.stringify(obj));
   };
-  const enableEditing = (id) => {
-    let editObj = allTasks.find((ele) => ele.id === id);
+  const enableEditing = (id, stElement) => {
+    let editObj = allNotes.find((ele) => ele.id === id);
     setIsEditing(true);
+    $(stElement.current).addClass("singleTaskHidden");
+    let stPos = stElement.current.getBoundingClientRect();
+    setModalPos({
+      top: stPos.top,
+      left: stPos.left,
+      width: stPos.width,
+    });
     setEditId(editObj.id);
-    setValue(editObj.task);
+    setEditValue(editObj.task);
+    // setInpfocus(true);
   };
   const cancelEditing = () => {
     setIsEditing(false);
     setValue("");
+    setEditValue("");
     setEditId("");
+    setInpfocus(false);
+  $('.singleTaskHidden').removeClass("singleTaskHidden");
   };
   const editTask = () => {
-    let removeEditTask = allTasks.filter((ele) => ele.id !== editID)
-    let isExist = removeEditTask.find((ele) => ele.task === value);
-    if (isExist) {
-      alert("exist");
-      return false;
-    }
-    const updatedTasks = allTasks.map((el) => {
+    console.log("prev", allNotes.length);
+    const updatedTasks = allNotes.map((el) => {
       if (el.id === editID) {
-        return { ...el, task: value };
+        return { ...el, task: editValue };
       }
       return el;
     });
-    setAllTasks(updatedTasks);
-    setPreviewTasks(updatedTasks);
+    setAllNotes(updatedTasks);
     cancelEditing();
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-
   };
   return (
     <AppContext.Provider
       value={{
-        allTasks,
-        setAllTasks,
+        allNotes,
+        setAllNotes,
         isEditing,
         setIsEditing,
         value,
@@ -91,10 +95,16 @@ const AppProvider = ({ children }) => {
         addTask,
         getPreviousData,
         deleteTask,
-        previewTasks,
         enableEditing,
         cancelEditing,
         editTask,
+        inpfocus,
+        setInpfocus,
+        modalPos,
+        setModalPos,
+        editValue,
+        setEditValue,
+        editID
       }}
     >
       {children}

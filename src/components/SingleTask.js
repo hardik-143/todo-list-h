@@ -1,24 +1,38 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useRef } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
-import { FiEdit2 } from "react-icons/fi";
 import { useAppContext } from "../AppContext";
+const $ = require("jquery");
 
 const SingleTask = ({ data }) => {
-  const {deleteTask,enableEditing}=useAppContext()
+  const { deleteTask, enableEditing } = useAppContext();
   const { id, task } = data;
-  useEffect(() => {
-  }, [])
-  
+  const singleTaskEle = useRef()
+  const getStr = (str) => {
+    return str
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\t/g, "\u00a0")
+      .replace(/\n/g, "<br/>");
+  };
+  const openEditModal = (e,id) => {
+    if (!$(e.target).hasClass('taskFunctions') && $(e.target).closest('.taskFunctions').length === 0) {
+      enableEditing(id,singleTaskEle)
+    }
+  };
+
   return (
-    <div className="singleTask">
-      <p className="taskName">{task}</p>
-      <div className="btns">
-        <button className="editTask" onClick={()=>enableEditing(id)}>
-          <FiEdit2 />
-        </button>
-        <button className="deleteTask" onClick={()=> deleteTask(id)}>
-          <BsFillTrashFill />
-        </button>
+    <div className="singleTask" onClick={(e) => openEditModal(e,id)} ref={singleTaskEle}>
+      <p
+        className="taskName"
+        dangerouslySetInnerHTML={{ __html: getStr(task) }}
+      ></p>
+      <div className="taskFunctions">
+        <div className="btns">
+          <button className="deleteTask" onClick={() => deleteTask(id)}>
+            <BsFillTrashFill />
+          </button>
+        </div>
       </div>
     </div>
   );

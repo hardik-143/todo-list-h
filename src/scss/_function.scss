@@ -1,0 +1,57 @@
+// Margin Functions
+/** example margin-top-10 **/
+@each $name in ("top", "right", "bottom", "left") {
+    @for $i from 0 through 80 {
+      .margin-#{$name}-#{$i} {
+        margin-#{$name}: 1px * $i;
+      }
+    }
+  }
+  
+  // Padding Functions
+  /** example padding-top-10 **/
+  @each $name in ("top", "right", "bottom", "left") {
+    @for $i from 0 through 80 {
+      .padding-#{$name}-#{$i} {
+        padding-#{$name}: 1px * $i;
+      }
+    }
+  }
+  
+  // FontSize Functions
+  @for $i from 8 through 60 {
+    .font-#{$i} {
+      font-size: 1px * $i;
+    }
+  }
+  
+  // width px Functions
+  @for $i from 1 through 100 {
+    .width-#{$i}px{
+      width: 1px * $i;
+    }
+  }
+  
+  // width percentage Functions
+  $unit:(
+    per: '%',
+  );
+  @for $value from 1 through 50 {
+    @each $unit, $ut in $unit{
+      .width-#{$value} { width: #{$value}#{$ut}; }
+    }
+  }
+  
+  // height px Functions
+  @for $i from 1 through 60 {
+    .height-#{$i}px{
+      height: 1px * $i;
+    }
+  }
+  
+  // line height px Functions
+  @for $i from 12 through 26 {
+    .line-height-#{$i}{
+      line-height: 1px * $i;
+    }
+  }
