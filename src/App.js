@@ -1,14 +1,18 @@
-import EditModal from "./components/EditModal";
-import Tasks from "./components/Tasks";
-import Wrapper from "./components/Wrapper";
-function App() {
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Layout from "./pages/Layout";
+const App = () => {
   return (
     <>
-      <Wrapper />
-      <Tasks/>
-      <EditModal/>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;

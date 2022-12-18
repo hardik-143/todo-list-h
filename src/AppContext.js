@@ -9,6 +9,7 @@ const AppProvider = ({ children }) => {
   const [editID, setEditId] = useState("");
   const [inpfocus, setInpfocus] = useState(false);
   const [openPalette, setopenPalette] = useState(false);
+  const [sideBarOpen, setsideBarOpen] = useState(false)
   const [modalPos, setModalPos] = useState({
     top: 0,
     left: 0,
@@ -38,6 +39,7 @@ const AppProvider = ({ children }) => {
       task: value,
       isPinned: false,
       color:'#fff',
+      isDeleted:false
     };
     setAllNotes((prev) => {
       return [...prev, obj];
@@ -47,7 +49,13 @@ const AppProvider = ({ children }) => {
   };
   const deleteTask = (id) => {
     cancelEditing();
-    let obj = allNotes.filter((ele) => ele.id !== id);
+    // let obj = allNotes.filter((ele) => ele.id !== id);
+    const obj = allNotes.map((el) => {
+      if (el.id === id) {
+        return { ...el, isDeleted: true };
+      }
+      return el;
+    });
     setAllNotes(obj);
     localStorage.setItem("tasks", JSON.stringify(obj));
   };
@@ -120,7 +128,9 @@ const AppProvider = ({ children }) => {
         editID,
         changeColor,
         openPalette,
-        setopenPalette
+        setopenPalette,
+        sideBarOpen,
+        setsideBarOpen
       }}
     >
       {children}

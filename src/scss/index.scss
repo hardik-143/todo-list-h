@@ -72,18 +72,26 @@ button {
     box-shadow: none;
   }
 }
-#root {
-  padding: 30px 10px 10px 10px;
+.main-wrapper {
+  padding: 20px 10px 10px 10px;
   height: 100vh;
   max-height: 100vh;
   flex-flow: row wrap;
   display: flex;
   flex-direction: column;
+  &.sidebaropened{
+    @media screen and (min-width:992px) {
+      padding-left: 50px;
+    }
+  }
   @media screen and (max-width: 700px) {
     margin: auto;
   }
 }
-
+.header{
+  display: flex;
+  align-items: flex-start;
+}
 // note wrapper
 .wrapper {
   width: calc(100% - 10px);
@@ -130,6 +138,10 @@ button {
   width: 100%;
   overflow: hidden;
   margin: auto;
+  transition: all 0.2s cubic-bezier(0.79, 1.14, 0.96, 0.99);
+  &.sidebarOpened{
+    padding-left: 180px;
+  }
   .inner {
     height: 100%;
     overflow: scroll;

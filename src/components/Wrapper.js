@@ -6,13 +6,8 @@ import useAutosizeTextArea from "../hooks/useAutosizeTextarea";
 const $ = require("jquery");
 
 const Wrapper = () => {
-  const {
-    setValue,
-    value,
-    addTask,
-    inpfocus,
-    setInpfocus,
-  } = useAppContext();
+  const { setValue, value, addTask, inpfocus, setInpfocus, setsideBarOpen } =
+    useAppContext();
   const inputElement = useRef();
   useAutosizeTextArea(inputElement.current, value);
   const changeValue = (e) => {
@@ -30,9 +25,12 @@ const Wrapper = () => {
       <div className="inputWrapper">
         <textarea
           value={value}
-          className={'noteInput'}
+          className={"noteInput"}
           onInput={(e) => changeValue(e)}
-          onFocus={() => setInpfocus(true)}
+          onFocus={() => {
+            setInpfocus(true);
+            setsideBarOpen(false);
+          }}
           onBlur={() => inpBlurred()}
           placeholder="Make a note"
           autoComplete="off"
