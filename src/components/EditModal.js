@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import { useAppContext } from "../AppContext";
 import "../scss/modal.scss";
-import useAutosizeTextArea from "../utils/useAutosizeTextarea";
+import useAutosizeTextArea from "../hooks/useAutosizeTextarea";
 const $ = require("jquery");
 
 const EditModal = () => {

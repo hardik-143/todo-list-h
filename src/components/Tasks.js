@@ -17,7 +17,7 @@ const Tasks = () => {
       <div className="inner" ref={inner}>
         <div className="tasksWrapper">
           <ResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 1, 750: 2, 800: 3, 900: 4 }}
+            columnsCountBreakPoints={{ 350: 1, 500: 2, 800: 3, 900: 4 }}
           >
             <Masonry gutter={"10"}>
               {allNotes.map((item, index) => {

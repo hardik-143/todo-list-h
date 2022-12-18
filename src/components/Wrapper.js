@@ -1,7 +1,7 @@
 import React from "react";
 import { useRef } from "react";
 import { useAppContext } from "../AppContext";
-import useAutosizeTextArea from "../utils/useAutosizeTextarea";
+import useAutosizeTextArea from "../hooks/useAutosizeTextarea";
 
 const $ = require("jquery");
 

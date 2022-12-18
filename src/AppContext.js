@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { colors } from "./data";
 const AppContext = React.createContext();
 const $ = require("jquery");
 const AppProvider = ({ children }) => {
@@ -9,6 +8,7 @@ const AppProvider = ({ children }) => {
   const [editValue, setEditValue] = useState("");
   const [editID, setEditId] = useState("");
   const [inpfocus, setInpfocus] = useState(false);
+  const [openPalette, setopenPalette] = useState(false);
   const [modalPos, setModalPos] = useState({
     top: 0,
     left: 0,
@@ -94,6 +94,7 @@ const AppProvider = ({ children }) => {
     });
     setAllNotes(updatedTasks);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    setopenPalette(false)
   }
   return (
     <AppContext.Provider
@@ -117,7 +118,9 @@ const AppProvider = ({ children }) => {
         editValue,
         setEditValue,
         editID,
-        changeColor
+        changeColor,
+        openPalette,
+        setopenPalette
       }}
     >
       {children}
