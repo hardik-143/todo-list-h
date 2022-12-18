@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import SingleTask from "./SingleTask";
 import { useAppContext } from ".././AppContext";
 import { useEffect } from "react";
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 const Tasks = () => {
   const { getPreviousData, allNotes } = useAppContext();
   const inner = useRef();
@@ -17,9 +17,9 @@ const Tasks = () => {
       <div className="inner" ref={inner}>
         <div className="tasksWrapper">
           <ResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 4 }}
+            columnsCountBreakPoints={{ 350: 1, 750: 2, 800: 3, 900: 4 }}
           >
-            <Masonry gutter={'10'}>
+            <Masonry gutter={"10"}>
               {allNotes.map((item, index) => {
                 return <SingleTask data={item} key={index} />;
               })}

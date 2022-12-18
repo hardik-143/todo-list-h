@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { colors } from "./data";
 const AppContext = React.createContext();
 const $ = require("jquery");
 const AppProvider = ({ children }) => {
@@ -36,6 +37,7 @@ const AppProvider = ({ children }) => {
       id: new Date(),
       task: value,
       isPinned: false,
+      color:'#fff',
     };
     setAllNotes((prev) => {
       return [...prev, obj];
@@ -83,6 +85,16 @@ const AppProvider = ({ children }) => {
     cancelEditing();
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
+  const changeColor = (clr,id)=>{
+    const updatedTasks = allNotes.map((el) => {
+      if (el.id === id) {
+        return { ...el, color: clr };
+      }
+      return el;
+    });
+    setAllNotes(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  }
   return (
     <AppContext.Provider
       value={{
@@ -104,7 +116,8 @@ const AppProvider = ({ children }) => {
         setModalPos,
         editValue,
         setEditValue,
-        editID
+        editID,
+        changeColor
       }}
     >
       {children}
