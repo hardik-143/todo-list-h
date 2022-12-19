@@ -1,12 +1,10 @@
 import React, { useRef } from "react";
-import SingleTask from "./SingleTask";
+import SingleTask from "./TaskType/SingleTask";
 import { useAppContext } from ".././AppContext";
 import { useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import useWindowDimensions from "../hooks/useWindowdimensions";
 const Tasks = () => {
-  const { getPreviousData, allNotes, sideBarOpen } = useAppContext();
-  const { width } = useWindowDimensions();
+  const { getPreviousData, allNotes} = useAppContext();
   const inner = useRef();
   useEffect(() => {
     getPreviousData();
@@ -14,13 +12,9 @@ const Tasks = () => {
     // eslint-disable-next-line
   }, []);
   return (
-    <div
-      className={`tasks ${
-        sideBarOpen && width > 992 ? "sidebarOpened  " : ""
-      } ${width > 992 ? "padding-left-45" : ""}`}
-    >
+    <div className={`tasks `}>
       {allNotes.filter((ele) => {
-        return ele.isDeleted === false;
+        return !ele.isArchived && !ele.isDeleted;
       }).length === 0 ? (
         <h2 className="title">No notes created</h2>
       ) : (
@@ -34,7 +28,7 @@ const Tasks = () => {
             <Masonry gutter={"10"}>
               {allNotes
                 .filter((ele) => {
-                  return ele.isDeleted === false;
+                  return !ele.isArchived && !ele.isDeleted;
                 })
                 .map((item, index) => {
                   return <SingleTask data={item} key={index} />;

@@ -9,7 +9,8 @@ const AppProvider = ({ children }) => {
   const [editID, setEditId] = useState("");
   const [inpfocus, setInpfocus] = useState(false);
   const [openPalette, setopenPalette] = useState(false);
-  const [sideBarOpen, setsideBarOpen] = useState(false)
+  const [sideBarOpen, setsideBarOpen] = useState(false);
+  const [editModalColor, seteditModalColor] = useState("");
   const [modalPos, setModalPos] = useState({
     top: 0,
     left: 0,
@@ -38,8 +39,9 @@ const AppProvider = ({ children }) => {
       id: new Date(),
       task: value,
       isPinned: false,
-      color:'#fff',
-      isDeleted:false
+      color: "#fff",
+      isDeleted: false,
+      isArchived:false,
     };
     setAllNotes((prev) => {
       return [...prev, obj];
@@ -47,9 +49,19 @@ const AppProvider = ({ children }) => {
     UpdateLocalStorage(obj);
     setValue("");
   };
+  const archiveTask = (id,iArchive) => {
+    cancelEditing();
+    const obj = allNotes.map((el) => {
+      if (el.id === id) {
+        return { ...el, isArchived: !iArchive };
+      }
+      return el;
+    });
+    setAllNotes(obj);
+    localStorage.setItem("tasks", JSON.stringify(obj));
+  };
   const deleteTask = (id) => {
     cancelEditing();
-    // let obj = allNotes.filter((ele) => ele.id !== id);
     const obj = allNotes.map((el) => {
       if (el.id === id) {
         return { ...el, isDeleted: true };
@@ -59,6 +71,23 @@ const AppProvider = ({ children }) => {
     setAllNotes(obj);
     localStorage.setItem("tasks", JSON.stringify(obj));
   };
+  const restoreTask = (id) => {
+    cancelEditing();
+    const obj = allNotes.map((el) => {
+      if (el.id === id) {
+        return { ...el, isDeleted: false };
+      }
+      return el;
+    });
+    setAllNotes(obj);
+    localStorage.setItem("tasks", JSON.stringify(obj));
+  };
+  const finalDelete = (id) =>{
+    cancelEditing();
+    let obj = allNotes.filter((ele) => ele.id !== id);
+    setAllNotes(obj);
+    localStorage.setItem("tasks", JSON.stringify(obj));
+  }
   const enableEditing = (id, stElement) => {
     let editObj = allNotes.find((ele) => ele.id === id);
     setIsEditing(true);
@@ -79,7 +108,7 @@ const AppProvider = ({ children }) => {
     setEditValue("");
     setEditId("");
     setInpfocus(false);
-  $('.singleTaskHidden').removeClass("singleTaskHidden");
+    $(".singleTaskHidden").removeClass("singleTaskHidden");
   };
   const editTask = () => {
     console.log("prev", allNotes.length);
@@ -93,7 +122,7 @@ const AppProvider = ({ children }) => {
     cancelEditing();
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
-  const changeColor = (clr,id)=>{
+  const changeColor = (clr, id) => {
     const updatedTasks = allNotes.map((el) => {
       if (el.id === id) {
         return { ...el, color: clr };
@@ -102,8 +131,15 @@ const AppProvider = ({ children }) => {
     });
     setAllNotes(updatedTasks);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-    setopenPalette(false)
-  }
+    setopenPalette(false);
+  };
+  const getStr = (str) => {
+    return str
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\t/g, "\u00a0")
+      .replace(/\n/g, "<br/>");
+  };
   return (
     <AppContext.Provider
       value={{
@@ -130,7 +166,13 @@ const AppProvider = ({ children }) => {
         openPalette,
         setopenPalette,
         sideBarOpen,
-        setsideBarOpen
+        setsideBarOpen,
+        editModalColor,
+        seteditModalColor,
+        getStr,
+        finalDelete,
+        restoreTask,
+        archiveTask
       }}
     >
       {children}

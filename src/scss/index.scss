@@ -26,6 +26,9 @@ input {
   background: none;
   box-shadow: none;
 }
+a {
+  text-decoration: none !important;
+}
 p {
   margin: 0;
 }
@@ -72,23 +75,32 @@ button {
     box-shadow: none;
   }
 }
+.app {
+  display: flex;
+}
 .main-wrapper {
   padding: 20px 10px 10px 10px;
   height: 100vh;
+  flex-grow: 1;
   max-height: 100vh;
   flex-flow: row wrap;
   display: flex;
   flex-direction: column;
-  &.sidebaropened{
-    @media screen and (min-width:992px) {
-      padding-left: 50px;
+  transition: all 0.2s cubic-bezier(0.79, 1.14, 0.96, 0.99);
+
+  &.padding-left-55 {
+    padding-left: 55px;
+  }
+  &.sidebarOpened {
+    @media screen and (min-width: 992px) {
+      padding-left: 190px !important;
     }
   }
   @media screen and (max-width: 700px) {
     margin: auto;
   }
 }
-.header{
+.header {
   display: flex;
   align-items: flex-start;
 }
@@ -103,9 +115,11 @@ button {
   border: 1px solid #c2c2c2;
   margin: 0 auto 30px;
   box-shadow: 0 4px 10px #20202040;
-
-  @media screen and (max-width: 992px) {
+  
+  @media screen and (max-width: 991px) {
     max-width: 400px;
+    width: calc(100% - 60px);
+    margin-left: 50px;
   }
   @media screen and (max-width: 768px) {
     max-width: 350px;
@@ -139,9 +153,6 @@ button {
   overflow: hidden;
   margin: auto;
   transition: all 0.2s cubic-bezier(0.79, 1.14, 0.96, 0.99);
-  &.sidebarOpened{
-    padding-left: 180px;
-  }
   .inner {
     height: 100%;
     overflow: scroll;
@@ -203,6 +214,11 @@ button {
         position: relative;
         justify-content: flex-start;
         align-items: center;
+        &.alwaysOpen {
+          display: inline-flex;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
         @media screen and (min-width: 992px) {
           opacity: 0;
           visibility: hidden;
@@ -243,6 +259,20 @@ button.deleteTask {
   &:hover {
     color: #fff;
     background: #dc3535;
+  }
+}
+button.restoreTask{
+  color: #227C70;
+  &:hover{
+    color: #fff;
+    background: #227C70;
+  }
+}
+button.archiveTask{
+  color: #227C70;
+  &:hover{
+    color: #fff;
+    background: #227C70;
   }
 }
 button.colorTask {
