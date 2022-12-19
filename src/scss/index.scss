@@ -78,6 +78,11 @@ button {
 .app {
   display: flex;
 }
+.app > #menu{
+  top: 23px;
+  display: none;
+  left: 20px;
+}
 .main-wrapper {
   padding: 20px 10px 10px 10px;
   height: 100vh;

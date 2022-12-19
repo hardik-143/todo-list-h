@@ -11,37 +11,55 @@ const AppProvider = ({ children }) => {
   const [openPalette, setopenPalette] = useState(false);
   const [sideBarOpen, setsideBarOpen] = useState(false);
   const [editModalColor, seteditModalColor] = useState("");
+  const [deletedNotes, setDeletedNotes] = useState([]);
+  const [archiveNotes, setArchiveNotes] = useState([]);
   const [modalPos, setModalPos] = useState({
     top: 0,
     left: 0,
   });
+  // set new localstorage 
+  const setNewLocalStorage = (data) =>{
+    localStorage.setItem("tasks", JSON.stringify(data));
+  }
+  // set new localstorage 
 
+  // update in localstorage 
   const UpdateLocalStorage = (obj) => {
     let items = JSON.parse(localStorage.getItem("tasks"));
     if (items) {
       items.push(obj);
-      localStorage.setItem("tasks", JSON.stringify(items));
+      setNewLocalStorage(items)
     } else {
-      localStorage.setItem("tasks", JSON.stringify([obj]));
+      setNewLocalStorage([obj])
     }
   };
+  // update in localstorage 
+  // get data from localStorage 
   const getPreviousData = () => {
     let items = JSON.parse(localStorage.getItem("tasks"));
-    if (items) {
+    if (items && items.length > 0) {
+      let deleted = items.filter((ele) => {
+        return ele.isDeleted;
+      });
+      let archived = items.filter((ele) => {
+        return ele.isArchived;
+      });
       setAllNotes(items);
+      setDeletedNotes(deleted);
+      setArchiveNotes(archived);
     }
   };
-  const addTask = (calledFrom) => {
-    // calledFrom
-    // 1 create button
-    // 2 document click
+  // get data from localStorage 
+
+  // create note function
+  const addTask = () => {
     let obj = {
       id: new Date(),
       task: value,
       isPinned: false,
       color: "#fff",
       isDeleted: false,
-      isArchived:false,
+      isArchived: false,
     };
     setAllNotes((prev) => {
       return [...prev, obj];
@@ -49,7 +67,10 @@ const AppProvider = ({ children }) => {
     UpdateLocalStorage(obj);
     setValue("");
   };
-  const archiveTask = (id,iArchive) => {
+  // create note function
+
+  // archive note function
+  const archiveNoteFunc = (id, iArchive) => {
     cancelEditing();
     const obj = allNotes.map((el) => {
       if (el.id === id) {
@@ -58,9 +79,16 @@ const AppProvider = ({ children }) => {
       return el;
     });
     setAllNotes(obj);
-    localStorage.setItem("tasks", JSON.stringify(obj));
+    setNewLocalStorage(obj)
+    let archived = obj.filter((ele) => {
+      return ele.isArchived;
+    });
+    setArchiveNotes(archived);
   };
-  const deleteTask = (id) => {
+  // archive note function
+
+  // delete note function
+  const deleteNoteFunc = (id) => {
     cancelEditing();
     const obj = allNotes.map((el) => {
       if (el.id === id) {
@@ -69,9 +97,16 @@ const AppProvider = ({ children }) => {
       return el;
     });
     setAllNotes(obj);
-    localStorage.setItem("tasks", JSON.stringify(obj));
+    setNewLocalStorage(obj)
+    let deleted = obj.filter((ele) => {
+      return ele.isDeleted;
+    });
+    setDeletedNotes(deleted);
   };
-  const restoreTask = (id) => {
+  // delete note function
+
+  // restore func function
+  const restoreNoteFunc = (id) => {
     cancelEditing();
     const obj = allNotes.map((el) => {
       if (el.id === id) {
@@ -80,14 +115,28 @@ const AppProvider = ({ children }) => {
       return el;
     });
     setAllNotes(obj);
-    localStorage.setItem("tasks", JSON.stringify(obj));
+    setNewLocalStorage(obj)
+    let deleted = obj.filter((ele) => {
+      return ele.isDeleted;
+    });
+    setDeletedNotes(deleted);
   };
-  const finalDelete = (id) =>{
+  // restore func function
+
+  // final delete function 
+  const finalDeleteFunc = (id) => {
     cancelEditing();
     let obj = allNotes.filter((ele) => ele.id !== id);
     setAllNotes(obj);
-    localStorage.setItem("tasks", JSON.stringify(obj));
-  }
+    setNewLocalStorage(obj)
+    let deleted = obj.filter((ele) => {
+      return ele.isDeleted;
+    });
+    setDeletedNotes(deleted);
+  };
+  // final delete function 
+
+  // enable note edit function 
   const enableEditing = (id, stElement) => {
     let editObj = allNotes.find((ele) => ele.id === id);
     setIsEditing(true);
@@ -100,8 +149,10 @@ const AppProvider = ({ children }) => {
     });
     setEditId(editObj.id);
     setEditValue(editObj.task);
-    // setInpfocus(true);
   };
+  // enable note edit function 
+
+  // cancel note editing 
   const cancelEditing = () => {
     setIsEditing(false);
     setValue("");
@@ -110,29 +161,38 @@ const AppProvider = ({ children }) => {
     setInpfocus(false);
     $(".singleTaskHidden").removeClass("singleTaskHidden");
   };
-  const editTask = () => {
+  // cancel note editing 
+
+  // edit note function 
+  const editNoteFunc = () => {
     console.log("prev", allNotes.length);
-    const updatedTasks = allNotes.map((el) => {
+    const obj = allNotes.map((el) => {
       if (el.id === editID) {
         return { ...el, task: editValue };
       }
       return el;
     });
-    setAllNotes(updatedTasks);
+    setAllNotes(obj);
     cancelEditing();
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    setNewLocalStorage(obj)
   };
+  // edit note function 
+
+  // change color of note
   const changeColor = (clr, id) => {
-    const updatedTasks = allNotes.map((el) => {
+    const obj = allNotes.map((el) => {
       if (el.id === id) {
         return { ...el, color: clr };
       }
       return el;
     });
-    setAllNotes(updatedTasks);
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    setAllNotes(obj);
+    setNewLocalStorage(obj)
     setopenPalette(false);
   };
+  // change color of note
+
+  // get html string
   const getStr = (str) => {
     return str
       .replace(/</g, "&lt;")
@@ -140,6 +200,7 @@ const AppProvider = ({ children }) => {
       .replace(/\t/g, "\u00a0")
       .replace(/\n/g, "<br/>");
   };
+  // get html string
   return (
     <AppContext.Provider
       value={{
@@ -151,10 +212,10 @@ const AppProvider = ({ children }) => {
         setValue,
         addTask,
         getPreviousData,
-        deleteTask,
+        deleteNoteFunc,
         enableEditing,
         cancelEditing,
-        editTask,
+        editNoteFunc,
         inpfocus,
         setInpfocus,
         modalPos,
@@ -170,9 +231,13 @@ const AppProvider = ({ children }) => {
         editModalColor,
         seteditModalColor,
         getStr,
-        finalDelete,
-        restoreTask,
-        archiveTask
+        finalDeleteFunc,
+        restoreNoteFunc,
+        archiveNoteFunc,
+        deletedNotes,
+        setDeletedNotes,
+        archiveNotes,
+        setArchiveNotes,
       }}
     >
       {children}

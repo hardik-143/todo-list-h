@@ -13,13 +13,13 @@ const $ = require("jquery");
 const SingleTask = ({ data }) => {
   const { width } = useWindowDimensions();
   const {
-    deleteTask,
+    deleteNoteFunc,
     enableEditing,
     openPalette,
     setopenPalette,
     seteditModalColor,
     getStr,
-    archiveTask
+    archiveNoteFunc
   } = useAppContext();
   const { id, task, color, isArchived } = data;
   const singleTaskEle = useRef();
@@ -74,7 +74,7 @@ const SingleTask = ({ data }) => {
               <MdClose />
             </button>
           )}
-          <button className="deleteTask tf-btn" onClick={() => deleteTask(id)}>
+          <button className="deleteTask tf-btn" onClick={() => deleteNoteFunc(id)}>
             <BsFillTrashFill />
           </button>
 
@@ -92,7 +92,7 @@ const SingleTask = ({ data }) => {
           </button>
           <button
             className="archiveTask tf-btn"
-            onClick={() => archiveTask(id, isArchived)}
+            onClick={() => archiveNoteFunc(id, isArchived)}
           >
             <BiArchiveIn />
           </button>

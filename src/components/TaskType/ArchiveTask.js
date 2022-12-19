@@ -4,7 +4,7 @@ import { useAppContext } from "../../AppContext";
 
 const ArchiveTask = ({ data }) => {
   const { id, task, color, isArchived } = data;
-  const { getStr, archiveTask } = useAppContext();
+  const { getStr, archiveNoteFunc } = useAppContext();
 
   return (
     <div
@@ -21,7 +21,7 @@ const ArchiveTask = ({ data }) => {
         <div className="btns">
           <button
             className="archiveTask tf-btn"
-            onClick={() => archiveTask(id, isArchived)}
+            onClick={() => archiveNoteFunc(id, isArchived)}
           >
             <BiArchiveOut />
           </button>

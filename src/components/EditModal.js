@@ -9,12 +9,12 @@ const $ = require("jquery");
 const EditModal = () => {
   const {
     isEditing,
-    editTask,
+    editNoteFunc,
     cancelEditing,
     setEditValue,
     modalPos,
     editValue,
-    deleteTask,
+    deleteNoteFunc,
     editID,
     editModalColor,
   } = useAppContext();
@@ -46,7 +46,7 @@ const EditModal = () => {
           }}
         >
           <div className="d-flex justify-content-end">
-            <button className="deleteTask" onClick={() => deleteTask(editID)}>
+            <button className="deleteTask" onClick={() => deleteNoteFunc(editID)}>
               <BsFillTrashFill />
             </button>
           </div>
@@ -61,7 +61,7 @@ const EditModal = () => {
             <button
               className="button"
               onClick={() => {
-                editTask();
+                editNoteFunc();
               }}
               disabled={editValue ? false : true}
             >

@@ -5,7 +5,7 @@ import { useAppContext } from "../../AppContext";
 
 const TrashTask = ({ data }) => {
   const { id, task, color } = data;
-  const { getStr, finalDelete, restoreTask } = useAppContext();
+  const { getStr, finalDeleteFunc, restoreNoteFunc } = useAppContext();
 
   return (
     <div
@@ -20,12 +20,12 @@ const TrashTask = ({ data }) => {
       ></p>
       <div className="taskFunctions alwaysOpen ">
         <div className="btns">
-          <button className="deleteTask tf-btn" onClick={() => finalDelete(id)}>
+          <button className="deleteTask tf-btn" onClick={() => finalDeleteFunc(id)}>
             <BsFillTrashFill />
           </button>
           <button
             className="restoreTask tf-btn"
-            onClick={() => restoreTask(id)}
+            onClick={() => restoreNoteFunc(id)}
           >
             <FaTrashRestore />
           </button>

@@ -4,7 +4,8 @@ import { useAppContext } from "../AppContext";
 import TrashTask from "../components/TaskType/TrashTask";
 
 const Trash = () => {
-  const { allNotes, getPreviousData } = useAppContext();
+  const {  getPreviousData, deletedNotes } =
+    useAppContext();
   useEffect(() => {
     getPreviousData();
     // eslint-disable-next-line
@@ -12,9 +13,7 @@ const Trash = () => {
   return (
     <div className="margin-top-50">
       <div className={`tasks `}>
-        {allNotes.filter((ele) => {
-            return ele.isDeleted
-        }).length === 0 ? (
+        {deletedNotes.length === 0 ? (
           <h2 className="title">No notes deleted</h2>
         ) : (
           ""
@@ -25,13 +24,9 @@ const Trash = () => {
               columnsCountBreakPoints={{ 350: 1, 500: 2, 800: 3, 900: 4 }}
             >
               <Masonry gutter={"10"}>
-                {allNotes
-                  .filter((ele) => {
-                    return ele.isDeleted
-                  })
-                  .map((item, index) => {
-                    return <TrashTask data={item} key={index} />;
-                  })}
+                {deletedNotes.map((item, index) => {
+                  return <TrashTask data={item} key={index} />;
+                })}
               </Masonry>
             </ResponsiveMasonry>
           </div>
