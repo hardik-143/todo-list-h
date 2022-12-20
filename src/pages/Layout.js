@@ -1,14 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { useAppContext } from "../AppContext";
-import Sidebar from "../components/Sidebar";
+// import Sidebar from "../components/Sidebar";
 import useWindowDimensions from "../hooks/useWindowdimensions";
 const Layout = () => {
-  const { sideBarOpen, setsideBarOpen } = useAppContext();
+  const { sideBarOpen } = useAppContext();
   const { width } = useWindowDimensions();
   return (
     <div className="app">
-      {/* <Sidebar /> */}
       <div
         className={`main-wrapper ${
           sideBarOpen && width > 992 ? "sidebarOpened  " : ""
