@@ -4,10 +4,11 @@ import { useAppContext } from "../AppContext";
 import TrashTask from "../components/TaskType/TrashTask";
 
 const Trash = () => {
-  const {  getPreviousData, deletedNotes } =
+  const { getPreviousData, deletedNotes, setpathURL } =
     useAppContext();
   useEffect(() => {
     getPreviousData();
+    setpathURL('/trash')
     // eslint-disable-next-line
   }, []);
   return (

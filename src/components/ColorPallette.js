@@ -10,7 +10,7 @@ const ColorPallette = ({ openPalette, id }) => {
           <span
             className="palette-color"
             style={{
-              background: clr,
+              background: clr.background,
             }}
             key={index}
             onClick={() => changeColor(clr, id)}

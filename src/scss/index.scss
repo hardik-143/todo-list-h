@@ -14,11 +14,11 @@ textarea::-webkit-resizer {
   border-color: transparent transparent transparent transparent;
 }
 body {
-  font-family: monospace;
   width: 100%;
   background: #fff !important;
   height: 100vh;
   width: 100%;
+  font-family: 'Poppins', sans-serif !important;
 }
 input {
   outline: none;
@@ -58,21 +58,26 @@ button {
   height: 30px;
   font-size: 14px;
   padding: 0 10px;
-  background: #303030;
+  background: #181d31;
   color: #fff;
   border-radius: 3px;
-  border: 1px solid #303030;
+  border: 1px solid #181d31;
   text-transform: capitalize;
-  box-shadow: 0 4px 10px #20202040;
-  transition: all 0.3s cubic-bezier(0.79, 1.14, 0.96, 0.99);
+  box-shadow: 0px 3px 5px #20202049;
+  transition: all 0.2s cubic-bezier(0.79, 1.14, 0.96, 0.99);
   &.cancel {
     margin-left: 10px;
-    background: #f8f988;
-    border-color: #f8f988;
-    color: #202020;
+    background: #dc3535;
+    border-color: #dc3535;
+    color: #fff;
+    &:hover {
+      color: #dc3535 !important;
+    }
   }
   &:hover:not(:disabled) {
     box-shadow: none;
+    background: none;
+    color: #181d31;
   }
 }
 .app > #menu {
@@ -81,6 +86,7 @@ button {
   left: 20px;
 }
 .main-wrapper {
+  background: #a5f1e9;
   padding: 60px 10px 10px;
   height: 100vh;
   flex-grow: 1;
@@ -164,6 +170,7 @@ button {
 
   .title {
     text-align: center;
+    color: #181d31;
   }
   .tasksWrapper {
     .singleTask {
@@ -189,6 +196,8 @@ button {
       .taskName {
         margin: 0;
         font-size: 1rem;
+        letter-spacing: 0.9px;
+        font-weight: 500;
         text-transform: capitalize;
         flex-grow: 1;
         margin-right: 0.875rem;

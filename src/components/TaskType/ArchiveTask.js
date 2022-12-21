@@ -3,14 +3,15 @@ import { BiArchiveOut } from "react-icons/bi";
 import { useAppContext } from "../../AppContext";
 
 const ArchiveTask = ({ data }) => {
-  const { id, task, color, isArchived } = data;
+  const { id, task, color, isArchived,background } = data;
   const { getStr, archiveNoteFunc } = useAppContext();
 
   return (
     <div
       className="singleTask"
       style={{
-        background: color,
+        background: background?background:'#fff',
+        color: color?color:'#000',
       }}
     >
       <p

@@ -13,6 +13,8 @@ const AppProvider = ({ children }) => {
   const [editModalColor, seteditModalColor] = useState("");
   const [deletedNotes, setDeletedNotes] = useState([]);
   const [archiveNotes, setArchiveNotes] = useState([]);
+  const [pathURL, setpathURL] = useState("");
+
   const [modalPos, setModalPos] = useState({
     top: 0,
     left: 0,
@@ -57,7 +59,8 @@ const AppProvider = ({ children }) => {
       id: new Date(),
       task: value,
       isPinned: false,
-      color: "#fff",
+      background: "#fff",
+      color:"#303030",
       isDeleted: false,
       isArchived: false,
     };
@@ -182,7 +185,7 @@ const AppProvider = ({ children }) => {
   const changeColor = (clr, id) => {
     const obj = allNotes.map((el) => {
       if (el.id === id) {
-        return { ...el, color: clr };
+        return { ...el, color: clr.color,background:clr.background };
       }
       return el;
     });
@@ -238,6 +241,8 @@ const AppProvider = ({ children }) => {
         setDeletedNotes,
         archiveNotes,
         setArchiveNotes,
+        pathURL,
+        setpathURL
       }}
     >
       {children}

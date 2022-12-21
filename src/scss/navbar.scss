@@ -1,8 +1,8 @@
-.menu-btn{
-    display: grid;
-    place-items: center;
-    height: 30px;
-    width: 30px;
+.menu-btn {
+  display: grid;
+  place-items: center;
+  height: 30px;
+  width: 30px;
 }
 #menu {
   width: 20px;
@@ -89,13 +89,14 @@ nav {
   align-items: center;
   justify-content: space-between;
   box-shadow: 2px 0 2px #20202050;
+  background: #fff6bd;
 }
 .sidebar {
-    padding: 7px;
+  padding: 7px;
   @media screen and (min-width: 992px) {
     width: 50px;
     &.open {
-        width: 180px;
+      width: 180px;
     }
   }
   box-shadow: 0 2px 2px #20202050;
@@ -105,7 +106,7 @@ nav {
   height: calc(100vh - 50px);
   position: fixed;
   bottom: 0;
-  background: #fff;
+  background: #fff6bd;
   left: 0;
   @media screen and (max-width: 991px) {
     left: 0;
@@ -117,13 +118,12 @@ nav {
     height: 36px;
     padding: 0;
     width: 100%;
+    margin: 2px 0;
     display: flex;
     align-items: center;
     // border-bottom-left-radius: 5px;
     border-radius: 5px;
-    &:hover {
-      background: #30303030;
-    }
+    // transition: all 0.2s cubic-bezier(0.79, 1.14, 0.96, 0.99);
     svg {
       font-size: 18px;
       width: 36px;
@@ -137,8 +137,14 @@ nav {
         padding-left: 10px;
       }
       overflow: hidden;
-      transition: all 0.2s cubic-bezier(0.79, 1.14, 0.96, 0.99);
+      transition: margin 0.2s cubic-bezier(0.79, 1.14, 0.96, 0.99),
+      padding 0.2s cubic-bezier(0.79, 1.14, 0.96, 0.99),
+      width 0.2s cubic-bezier(0.79, 1.14, 0.96, 0.99);
       text-align: left;
+    }
+    &:hover , &.active{
+      background: #181d31;
+      color: #fff;
     }
   }
   @media screen and (min-width: 992px) {

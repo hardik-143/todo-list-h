@@ -4,14 +4,15 @@ import { FaTrashRestore } from "react-icons/fa";
 import { useAppContext } from "../../AppContext";
 
 const TrashTask = ({ data }) => {
-  const { id, task, color } = data;
+  const { id, task, color, background } = data;
   const { getStr, finalDeleteFunc, restoreNoteFunc } = useAppContext();
 
   return (
     <div
       className="singleTask"
       style={{
-        background: color,
+        background: background ? background : "#fff",
+        color: color ? color : "#000",
       }}
     >
       <p
@@ -20,7 +21,10 @@ const TrashTask = ({ data }) => {
       ></p>
       <div className="taskFunctions alwaysOpen ">
         <div className="btns">
-          <button className="deleteTask tf-btn" onClick={() => finalDeleteFunc(id)}>
+          <button
+            className="deleteTask tf-btn"
+            onClick={() => finalDeleteFunc(id)}
+          >
             <BsFillTrashFill />
           </button>
           <button

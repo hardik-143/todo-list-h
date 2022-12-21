@@ -4,9 +4,10 @@ import { useAppContext } from "../AppContext";
 import ArchiveTask from "../components/TaskType/ArchiveTask";
 
 const Archive = () => {
-  const { getPreviousData,archiveNotes} = useAppContext();
+  const { getPreviousData,archiveNotes,setpathURL} = useAppContext();
   useEffect(() => {
     getPreviousData();
+    setpathURL('/archive')
     // eslint-disable-next-line
   }, []);
   return (

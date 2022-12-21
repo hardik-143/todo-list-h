@@ -21,7 +21,7 @@ const SingleTask = ({ data }) => {
     getStr,
     archiveNoteFunc
   } = useAppContext();
-  const { id, task, color, isArchived } = data;
+  const { id, task, color, isArchived,background } = data;
   const singleTaskEle = useRef();
 
   const openEditModal = (e, id, color) => {
@@ -55,7 +55,8 @@ const SingleTask = ({ data }) => {
       ref={singleTaskEle}
       onMouseLeave={() => setopenPalette(false)}
       style={{
-        background: color,
+        background: background?background:'#fff',
+        color: color?color:'#000',
       }}
     >
       <p
