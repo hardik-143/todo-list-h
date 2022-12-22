@@ -312,10 +312,11 @@ button.colorTask {
   background: #fff;
   display: flex !important;
   align-items: center;
-  padding: 0 3px;
+  flex-flow: row wrap;
+  
+  padding: 5px;
   opacity: 0;
   border-radius: 3px;
-  height: 0;
   top: 38px;
   visibility: hidden;
   transition: all 0.3s cubic-bezier(0.69, 0.77, 0.68, 0.98);
@@ -328,7 +329,6 @@ button.colorTask {
     z-index: unset;
     opacity: 1;
     visibility: visible;
-    height: 30px;
   }
   .palette-color {
     display: inline-block;
@@ -352,5 +352,17 @@ button.colorTask {
     &:hover {
       border-color: #000;
     }
+  }
+}
+
+.singleTask.selected{
+  position: relative;
+  &::before{
+    content: "";
+    position: absolute;
+    width: calc(100% + 10px);top: -5px;
+    left: -5px;
+    height: calc(100% + 10px);
+    border: 3px solid #181d31;
   }
 }

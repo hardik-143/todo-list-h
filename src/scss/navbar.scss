@@ -106,10 +106,11 @@ nav {
   overflow: hidden;
   height: calc(100vh - 50px);
   position: fixed;
-  bottom: 0;
+  top: 50px;
   background: #fff6bd;
   left: 0;
   @media screen and (max-width: 991px) {
+    height: auto;
     left: 0;
     transform: translateX(-100%);
   }
