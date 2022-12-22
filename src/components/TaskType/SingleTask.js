@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRef } from "react";
 import { BiArchiveIn } from "react-icons/bi";
 import { BsFillTrashFill } from "react-icons/bs";
@@ -8,6 +8,7 @@ import { VscSymbolColor } from "react-icons/vsc";
 import { useAppContext } from "../../AppContext";
 import useWindowDimensions from "../../hooks/useWindowdimensions";
 import ColorPallette from "../ColorPallette";
+import SelectTask from "../SelectTask";
 const $ = require("jquery");
 
 const SingleTask = ({ data }) => {
@@ -17,21 +18,22 @@ const SingleTask = ({ data }) => {
     enableEditing,
     openPalette,
     setopenPalette,
-    seteditModalColor,
     getStr,
-    archiveNoteFunc
+    archiveNoteFunc,
   } = useAppContext();
-  const { id, task, color, isArchived,background } = data;
+  const { id, task, color, isArchived, background } = data;
+  const [isSelected,setIsSelected] = useState(false)
   const singleTaskEle = useRef();
 
-  const openEditModal = (e, id, color) => {
+  const openEditModal = (e, id) => {
     if (
       !$(e.target).hasClass("taskFunctions") &&
       $(e.target).closest(".taskFunctions").length === 0 &&
       !$(e.target).hasClass("open-taskFunctions") &&
-      $(e.target).closest(".open-taskFunctions").length === 0
+      $(e.target).closest(".open-taskFunctions").length === 0 &&
+      !$(e.target).hasClass("select-task-btn") &&
+      $(e.target).closest(".select-task-btn").length === 0
     ) {
-      seteditModalColor({color,background});
       enableEditing(id, singleTaskEle);
     }
   };
@@ -50,23 +52,28 @@ const SingleTask = ({ data }) => {
 
   return (
     <div
-      className="singleTask"
-      onClick={(e) => openEditModal(e, id, color,background)}
+      className={`singleTask ${isSelected ? "selected" : ""}`}
+      onClick={(e) => openEditModal(e, id)}
       ref={singleTaskEle}
       onMouseLeave={() => setopenPalette(false)}
       style={{
-        background: background?background:'#fff',
-        color: color?color:'#000',
+        background: background ? background : "#fff",
+        color: color ? color : "#000",
       }}
     >
+      <SelectTask id={id} isSelected={isSelected} setIsSelected={setIsSelected} />
       <p
         className="taskName"
         dangerouslySetInnerHTML={{ __html: getStr(task) }}
       ></p>
       {width < 992 && (
-        <button className="open-taskFunctions" style={{
-          color:color,
-          }} onClick={() => openTaskFunc()}>
+        <button
+          className="open-taskFunctions"
+          style={{
+            color: color,
+          }}
+          onClick={() => openTaskFunc()}
+        >
           <RiMenuLine />
         </button>
       )}
@@ -77,7 +84,10 @@ const SingleTask = ({ data }) => {
               <MdClose />
             </button>
           )}
-          <button className="deleteTask tf-btn" onClick={() => deleteNoteFunc(id)}>
+          <button
+            className="deleteTask tf-btn"
+            onClick={() => deleteNoteFunc(id,false)}
+          >
             <BsFillTrashFill />
           </button>
 

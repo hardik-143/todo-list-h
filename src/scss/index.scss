@@ -18,7 +18,7 @@ body {
   background: #fff !important;
   height: 100vh;
   width: 100%;
-  font-family: 'Poppins', sans-serif !important;
+  font-family: "Poppins", sans-serif !important;
 }
 input {
   outline: none;
@@ -65,7 +65,7 @@ button {
   text-transform: capitalize;
   box-shadow: 0px 3px 5px #20202049;
   transition: all 0.2s cubic-bezier(0.79, 1.14, 0.96, 0.99);
-  &.cancel {
+  &.danger {
     margin-left: 10px;
     background: #dc3535;
     border-color: #dc3535;
@@ -173,13 +173,19 @@ button {
     color: #181d31;
   }
   .tasksWrapper {
+    padding: 20px 10px 0;
+    @media screen and (max-width: 991px) {
+      padding: 0;
+    }
     .singleTask {
-      margin: 0 5px 10px;
+      margin: 10px;
+      position: relative;
       border-radius: 3px;
       box-shadow: 0 4px 5px #a4a4a440;
-      padding: 0.5rem 1rem 0;
+      padding: 0.75rem 1rem 0;
       border: 1px solid #b8b8b8a1;
       transition: box-shadow 0.2s linear;
+      user-select: none;
       &.singleTaskHidden {
         opacity: 0 !important;
         visibility: hidden !important;
@@ -191,6 +197,34 @@ button {
             opacity: 1 !important;
             visibility: visible !important;
           }
+        }
+      }
+      .select-task-btn{
+        width: 26px;
+        height: 26px;
+        position: absolute;
+        top: -13px;
+        left: -13px;
+        font-size: 20px;
+        display: none;
+        place-items: center;
+        color: #181d31;
+        border: 1px solid transparent;
+        background: #fff;
+        border-radius: 50%;
+        transition: all 0.2s cubic-bezier(0.69, 0.77, 0.68, 0.98);
+      }
+      &:hover{
+        .select-task-btn{
+          display: grid;
+        }
+      }
+      &.selected{
+        .select-task-btn{
+          display: grid !important;
+          border-color: #181d31;
+          top: -7px;
+          left: -7px;
         }
       }
       .taskName {
@@ -313,7 +347,7 @@ button.colorTask {
   display: flex !important;
   align-items: center;
   flex-flow: row wrap;
-  
+
   padding: 5px;
   opacity: 0;
   border-radius: 3px;
@@ -338,12 +372,12 @@ button.colorTask {
     border: 1px solid #20202040;
     margin: 2px;
     position: relative;
-    &.no-color{
+    &.no-color {
       display: inline-flex;
       justify-content: center;
       align-items: center;
       color: #000 !important;
-      svg{
+      svg {
         width: 20px;
         height: 20px;
         transform: scale(1.3);
@@ -355,14 +389,5 @@ button.colorTask {
   }
 }
 
-.singleTask.selected{
-  position: relative;
-  &::before{
-    content: "";
-    position: absolute;
-    width: calc(100% + 10px);top: -5px;
-    left: -5px;
-    height: calc(100% + 10px);
-    border: 3px solid #181d31;
-  }
-}
+
+

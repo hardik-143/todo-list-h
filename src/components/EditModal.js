@@ -44,7 +44,7 @@ const EditModal = () => {
           }}
         >
           <div className="d-flex justify-content-end">
-            <button className="deleteTask tf-btn" onClick={() => deleteNoteFunc(editID)}>
+            <button className="deleteTask tf-btn" onClick={() => deleteNoteFunc(editID,false)}>
               <BsFillTrashFill />
             </button>
           </div>
@@ -66,7 +66,7 @@ const EditModal = () => {
               update
             </button>
             <button
-              className="button cancel"
+              className="button danger"
               onClick={() => {
                 cancelEditing();
               }}

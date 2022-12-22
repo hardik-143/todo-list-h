@@ -10,12 +10,9 @@ const AppProvider = ({ children }) => {
   const [inpfocus, setInpfocus] = useState(false);
   const [openPalette, setopenPalette] = useState(false);
   const [sideBarOpen, setsideBarOpen] = useState(false);
-  const [editModalColor, seteditModalColor] = useState({
-    background: "",
-    color: "",
-  });
   const [deletedNotes, setDeletedNotes] = useState([]);
   const [archiveNotes, setArchiveNotes] = useState([]);
+  const [selectedTask, setselectedTask] = useState([])
   const [pathURL, setpathURL] = useState("");
 
   const [modalPos, setModalPos] = useState({
@@ -94,7 +91,7 @@ const AppProvider = ({ children }) => {
   // archive note function
 
   // delete note function
-  const deleteNoteFunc = (id) => {
+  const deleteNoteFunc = (id,isMultiple) => {
     cancelEditing();
     const obj = allNotes.map((el) => {
       if (el.id === id) {
@@ -234,8 +231,6 @@ const AppProvider = ({ children }) => {
         setopenPalette,
         sideBarOpen,
         setsideBarOpen,
-        editModalColor,
-        seteditModalColor,
         getStr,
         finalDeleteFunc,
         restoreNoteFunc,
@@ -246,6 +241,8 @@ const AppProvider = ({ children }) => {
         setArchiveNotes,
         pathURL,
         setpathURL,
+        selectedTask,
+        setselectedTask
       }}
     >
       {children}
