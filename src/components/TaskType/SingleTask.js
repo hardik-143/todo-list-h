@@ -31,7 +31,7 @@ const SingleTask = ({ data }) => {
       !$(e.target).hasClass("open-taskFunctions") &&
       $(e.target).closest(".open-taskFunctions").length === 0
     ) {
-      seteditModalColor(color);
+      seteditModalColor({color,background});
       enableEditing(id, singleTaskEle);
     }
   };
@@ -51,7 +51,7 @@ const SingleTask = ({ data }) => {
   return (
     <div
       className="singleTask"
-      onClick={(e) => openEditModal(e, id, color)}
+      onClick={(e) => openEditModal(e, id, color,background)}
       ref={singleTaskEle}
       onMouseLeave={() => setopenPalette(false)}
       style={{
@@ -64,7 +64,9 @@ const SingleTask = ({ data }) => {
         dangerouslySetInnerHTML={{ __html: getStr(task) }}
       ></p>
       {width < 992 && (
-        <button className="open-taskFunctions" onClick={() => openTaskFunc()}>
+        <button className="open-taskFunctions" style={{
+          color:color,
+          }} onClick={() => openTaskFunc()}>
           <RiMenuLine />
         </button>
       )}

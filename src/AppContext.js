@@ -10,7 +10,10 @@ const AppProvider = ({ children }) => {
   const [inpfocus, setInpfocus] = useState(false);
   const [openPalette, setopenPalette] = useState(false);
   const [sideBarOpen, setsideBarOpen] = useState(false);
-  const [editModalColor, seteditModalColor] = useState("");
+  const [editModalColor, seteditModalColor] = useState({
+    background: "",
+    color: "",
+  });
   const [deletedNotes, setDeletedNotes] = useState([]);
   const [archiveNotes, setArchiveNotes] = useState([]);
   const [pathURL, setpathURL] = useState("");
@@ -19,24 +22,24 @@ const AppProvider = ({ children }) => {
     top: 0,
     left: 0,
   });
-  // set new localstorage 
-  const setNewLocalStorage = (data) =>{
+  // set new localstorage
+  const setNewLocalStorage = (data) => {
     localStorage.setItem("tasks", JSON.stringify(data));
-  }
-  // set new localstorage 
+  };
+  // set new localstorage
 
-  // update in localstorage 
+  // update in localstorage
   const UpdateLocalStorage = (obj) => {
     let items = JSON.parse(localStorage.getItem("tasks"));
     if (items) {
       items.push(obj);
-      setNewLocalStorage(items)
+      setNewLocalStorage(items);
     } else {
-      setNewLocalStorage([obj])
+      setNewLocalStorage([obj]);
     }
   };
-  // update in localstorage 
-  // get data from localStorage 
+  // update in localstorage
+  // get data from localStorage
   const getPreviousData = () => {
     let items = JSON.parse(localStorage.getItem("tasks"));
     if (items && items.length > 0) {
@@ -51,7 +54,7 @@ const AppProvider = ({ children }) => {
       setArchiveNotes(archived);
     }
   };
-  // get data from localStorage 
+  // get data from localStorage
 
   // create note function
   const addTask = () => {
@@ -60,7 +63,7 @@ const AppProvider = ({ children }) => {
       task: value,
       isPinned: false,
       background: "#fff",
-      color:"#303030",
+      color: "#303030",
       isDeleted: false,
       isArchived: false,
     };
@@ -82,7 +85,7 @@ const AppProvider = ({ children }) => {
       return el;
     });
     setAllNotes(obj);
-    setNewLocalStorage(obj)
+    setNewLocalStorage(obj);
     let archived = obj.filter((ele) => {
       return ele.isArchived;
     });
@@ -100,7 +103,7 @@ const AppProvider = ({ children }) => {
       return el;
     });
     setAllNotes(obj);
-    setNewLocalStorage(obj)
+    setNewLocalStorage(obj);
     let deleted = obj.filter((ele) => {
       return ele.isDeleted;
     });
@@ -118,7 +121,7 @@ const AppProvider = ({ children }) => {
       return el;
     });
     setAllNotes(obj);
-    setNewLocalStorage(obj)
+    setNewLocalStorage(obj);
     let deleted = obj.filter((ele) => {
       return ele.isDeleted;
     });
@@ -126,20 +129,20 @@ const AppProvider = ({ children }) => {
   };
   // restore func function
 
-  // final delete function 
+  // final delete function
   const finalDeleteFunc = (id) => {
     cancelEditing();
     let obj = allNotes.filter((ele) => ele.id !== id);
     setAllNotes(obj);
-    setNewLocalStorage(obj)
+    setNewLocalStorage(obj);
     let deleted = obj.filter((ele) => {
       return ele.isDeleted;
     });
     setDeletedNotes(deleted);
   };
-  // final delete function 
+  // final delete function
 
-  // enable note edit function 
+  // enable note edit function
   const enableEditing = (id, stElement) => {
     let editObj = allNotes.find((ele) => ele.id === id);
     setIsEditing(true);
@@ -153,9 +156,9 @@ const AppProvider = ({ children }) => {
     setEditId(editObj.id);
     setEditValue(editObj.task);
   };
-  // enable note edit function 
+  // enable note edit function
 
-  // cancel note editing 
+  // cancel note editing
   const cancelEditing = () => {
     setIsEditing(false);
     setValue("");
@@ -164,9 +167,9 @@ const AppProvider = ({ children }) => {
     setInpfocus(false);
     $(".singleTaskHidden").removeClass("singleTaskHidden");
   };
-  // cancel note editing 
+  // cancel note editing
 
-  // edit note function 
+  // edit note function
   const editNoteFunc = () => {
     console.log("prev", allNotes.length);
     const obj = allNotes.map((el) => {
@@ -177,20 +180,20 @@ const AppProvider = ({ children }) => {
     });
     setAllNotes(obj);
     cancelEditing();
-    setNewLocalStorage(obj)
+    setNewLocalStorage(obj);
   };
-  // edit note function 
+  // edit note function
 
   // change color of note
   const changeColor = (clr, id) => {
     const obj = allNotes.map((el) => {
       if (el.id === id) {
-        return { ...el, color: clr.color,background:clr.background };
+        return { ...el, color: clr.color, background: clr.background };
       }
       return el;
     });
     setAllNotes(obj);
-    setNewLocalStorage(obj)
+    setNewLocalStorage(obj);
     setopenPalette(false);
   };
   // change color of note
@@ -242,7 +245,7 @@ const AppProvider = ({ children }) => {
         archiveNotes,
         setArchiveNotes,
         pathURL,
-        setpathURL
+        setpathURL,
       }}
     >
       {children}

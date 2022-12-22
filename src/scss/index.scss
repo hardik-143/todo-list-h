@@ -225,7 +225,7 @@ button {
         justify-content: flex-start;
         align-items: center;
         &.alwaysOpen {
-          display: inline-flex;
+          display: inline-flex !important;
           opacity: 1 !important;
           visibility: visible !important;
         }
@@ -337,6 +337,18 @@ button.colorTask {
     border-radius: 50%;
     border: 1px solid #20202040;
     margin: 2px;
+    position: relative;
+    &.no-color{
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      color: #000 !important;
+      svg{
+        width: 20px;
+        height: 20px;
+        transform: scale(1.3);
+      }
+    }
     &:hover {
       border-color: #000;
     }

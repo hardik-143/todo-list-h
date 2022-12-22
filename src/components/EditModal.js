@@ -16,7 +16,6 @@ const EditModal = () => {
     editValue,
     deleteNoteFunc,
     editID,
-    editModalColor,
   } = useAppContext();
 
   const modalElement = useRef();
@@ -42,7 +41,6 @@ const EditModal = () => {
             top: modalPos.top,
             left: modalPos.left,
             width: modalPos.width,
-            background: editModalColor,
           }}
         >
           <div className="d-flex justify-content-end">
