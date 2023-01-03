@@ -16,7 +16,7 @@ const Tasks = () => {
       {allNotes.filter((ele) => {
         return !ele.isArchived && !ele.isDeleted;
       }).length === 0 ? (
-        <h2 className="title">No notes created today</h2>
+        <h2 className="title">No notes created</h2>
       ) : (
         ""
       )}
