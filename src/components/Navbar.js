@@ -3,7 +3,7 @@ import { useAppContext } from "../AppContext";
 import "../scss/navbar.scss";
 import Sidebar from "./Sidebar";
 const Navbar = () => {
-  const { sideBarOpen, setsideBarOpen, selectedTask,deleteNoteFunc } = useAppContext();
+  const { sideBarOpen, setsideBarOpen, selectedTask } = useAppContext();
   return (
     <nav>
       <div className="left">
@@ -22,7 +22,7 @@ const Navbar = () => {
       </div>
       <div className="right">
         {selectedTask.length > 0 && (
-          <button className="button danger" onClick={()=>deleteNoteFunc(0,true)}>delete</button>
+          <button className="button danger">delete</button>
         )}
       </div>
       <Sidebar />
