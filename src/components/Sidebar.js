@@ -6,23 +6,27 @@ import { BiArchiveIn, BiTask } from "react-icons/bi";
 const Sidebar = () => {
   const { pathURL } = useAppContext();
 
-  const { sideBarOpen, setsideBarOpen } = useAppContext();
+  const { sideBarOpen, setsideBarOpen, setselectedTask  } = useAppContext();
+  const pagechange = () => {
+    setsideBarOpen(false);
+    setselectedTask([]);
+  };
   return (
     <div className={`sidebar ${sideBarOpen ? "open" : ""}`}>
       <div className="inner">
-        <Link to={"/"} onClick={() => setsideBarOpen(false)}>
+        <Link to={"/"} onClick={() => pagechange()}>
           <button className={`s-btn ${pathURL === "/" ? "active" : ""}`}>
             <BiTask />
             <span>Tasks</span>
           </button>
         </Link>
-        <Link to={"/trash"} onClick={() => setsideBarOpen(false)}>
+        <Link to={"/trash"} onClick={() => pagechange()}>
           <button className={`s-btn ${pathURL === "/trash" ? "active" : ""}`}>
             <FaRegTrashAlt />
             <span>Trash</span>
           </button>
         </Link>
-        <Link to={"/archive"} onClick={() => setsideBarOpen(false)}>
+        <Link to={"/archive"} onClick={() => pagechange()}>
           <button className={`s-btn ${pathURL === "/archive" ? "active" : ""}`}>
             <BiArchiveIn />
             <span>Archive</span>

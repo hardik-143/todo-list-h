@@ -12,7 +12,7 @@ const AppProvider = ({ children }) => {
   const [sideBarOpen, setsideBarOpen] = useState(false);
   const [deletedNotes, setDeletedNotes] = useState([]);
   const [archiveNotes, setArchiveNotes] = useState([]);
-  const [selectedTask, setselectedTask] = useState([])
+  const [selectedTask, setselectedTask] = useState([]);
   const [pathURL, setpathURL] = useState("");
 
   const [modalPos, setModalPos] = useState({
@@ -73,13 +73,20 @@ const AppProvider = ({ children }) => {
   // create note function
 
   // archive note function
-  const archiveNoteFunc = (id, iArchive) => {
+  const archiveNoteFunc = (id, iArchive,isMultiple) => {
     cancelEditing();
     const obj = allNotes.map((el) => {
-      if (el.id === id) {
-        return { ...el, isArchived: !iArchive };
+      if (isMultiple) {
+        if (selectedTask.includes(el.id)) {
+          return { ...el, isArchived: !iArchive };
+        }
+        return el;
+      } else {
+        if (el.id === id) {
+          return { ...el, isArchived: !iArchive };
+        }
+        return el;
       }
-      return el;
     });
     setAllNotes(obj);
     setNewLocalStorage(obj);
@@ -87,17 +94,25 @@ const AppProvider = ({ children }) => {
       return ele.isArchived;
     });
     setArchiveNotes(archived);
+    setselectedTask([]);
   };
   // archive note function
 
   // delete note function
-  const deleteNoteFunc = (id,isMultiple) => {
+  const deleteNoteFunc = (id, isMultiple = false) => {
     cancelEditing();
     const obj = allNotes.map((el) => {
-      if (el.id === id) {
-        return { ...el, isDeleted: true };
+      if (isMultiple) {
+        if (selectedTask.includes(el.id)) {
+          return { ...el, isDeleted: true };
+        }
+        return el;
+      } else {
+        if (el.id === id) {
+          return { ...el, isDeleted: true };
+        }
+        return el;
       }
-      return el;
     });
     setAllNotes(obj);
     setNewLocalStorage(obj);
@@ -105,17 +120,25 @@ const AppProvider = ({ children }) => {
       return ele.isDeleted;
     });
     setDeletedNotes(deleted);
+    setselectedTask([]);
   };
   // delete note function
 
   // restore func function
-  const restoreNoteFunc = (id) => {
+  const restoreNoteFunc = (id, isMultiple = false) => {
     cancelEditing();
     const obj = allNotes.map((el) => {
-      if (el.id === id) {
-        return { ...el, isDeleted: false };
+      if (isMultiple) {
+        if (selectedTask.includes(el.id)) {
+          return { ...el, isDeleted: false };
+        }
+        return el;
+      } else {
+        if (el.id === id) {
+          return { ...el, isDeleted: false };
+        }
+        return el;
       }
-      return el;
     });
     setAllNotes(obj);
     setNewLocalStorage(obj);
@@ -123,6 +146,7 @@ const AppProvider = ({ children }) => {
       return ele.isDeleted;
     });
     setDeletedNotes(deleted);
+    setselectedTask([]);
   };
   // restore func function
 
@@ -242,7 +266,7 @@ const AppProvider = ({ children }) => {
         pathURL,
         setpathURL,
         selectedTask,
-        setselectedTask
+        setselectedTask,
       }}
     >
       {children}

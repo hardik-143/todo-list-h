@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRef } from "react";
 import { BiArchiveIn } from "react-icons/bi";
 import { BsFillTrashFill } from "react-icons/bs";
@@ -20,9 +20,9 @@ const SingleTask = ({ data }) => {
     setopenPalette,
     getStr,
     archiveNoteFunc,
+    selectedTask,
   } = useAppContext();
   const { id, task, color, isArchived, background } = data;
-  const [isSelected,setIsSelected] = useState(false)
   const singleTaskEle = useRef();
 
   const openEditModal = (e, id) => {
@@ -52,7 +52,7 @@ const SingleTask = ({ data }) => {
 
   return (
     <div
-      className={`singleTask ${isSelected ? "selected" : ""}`}
+      className={`singleTask ${selectedTask.includes(id) ? "selected" : ""}`}
       onClick={(e) => openEditModal(e, id)}
       ref={singleTaskEle}
       onMouseLeave={() => setopenPalette(false)}
@@ -61,7 +61,7 @@ const SingleTask = ({ data }) => {
         color: color ? color : "#000",
       }}
     >
-      <SelectTask id={id} isSelected={isSelected} setIsSelected={setIsSelected} />
+      <SelectTask id={id} />
       <p
         className="taskName"
         dangerouslySetInnerHTML={{ __html: getStr(task) }}

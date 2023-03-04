@@ -166,3 +166,13 @@ nav {
     }
   }
 }
+
+.selectedCount{
+  background: var(--black);
+  display: inline-flex;
+  align-items: flex-end;
+  span{
+    font-weight: bold;
+    margin-left: 8px;
+  }
+}

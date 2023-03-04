@@ -1,6 +1,7 @@
 import React from "react";
 import { useAppContext } from "../AppContext";
 import "../scss/navbar.scss";
+import MultiFunctionButton from "./MultiFunctionButton";
 import Sidebar from "./Sidebar";
 const Navbar = () => {
   const { sideBarOpen, setsideBarOpen, selectedTask } = useAppContext();
@@ -22,7 +23,12 @@ const Navbar = () => {
       </div>
       <div className="right">
         {selectedTask.length > 0 && (
-          <button className="button danger">delete</button>
+          <>
+            <span className="selectedCount">
+              selected : <span>{selectedTask.length}</span>
+            </span>
+            <MultiFunctionButton />
+          </>
         )}
       </div>
       <Sidebar />

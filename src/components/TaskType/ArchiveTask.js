@@ -1,19 +1,21 @@
 import React from "react";
 import { BiArchiveOut } from "react-icons/bi";
 import { useAppContext } from "../../AppContext";
+import SelectTask from "../SelectTask";
 
 const ArchiveTask = ({ data }) => {
   const { id, task, color, isArchived,background } = data;
-  const { getStr, archiveNoteFunc } = useAppContext();
+  const { getStr, archiveNoteFunc,selectedTask } = useAppContext();
 
   return (
     <div
-      className="singleTask"
+    className={`singleTask ${selectedTask.includes(id) ? "selected" : ""}`}
       style={{
         background: background?background:'#fff',
         color: color?color:'#000',
       }}
     >
+      <SelectTask id={id} />
       <p
         className="taskName"
         dangerouslySetInnerHTML={{ __html: getStr(task) }}

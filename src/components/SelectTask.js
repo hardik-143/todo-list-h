@@ -1,25 +1,24 @@
 import React from "react";
 import { BsCheckCircle, BsCheckCircleFill } from "react-icons/bs";
 import { useAppContext } from "../AppContext";
-const SelectTask = ({ id, isSelected, setIsSelected }) => {
+const SelectTask = ({ id }) => {
   const { selectedTask, setselectedTask } = useAppContext();
   const updateSelection = () => {
-    if (!isSelected) {
-        setselectedTask((prev)=>{
-            return [...prev,id]
-        })    
-    }else{
-        const newArr = selectedTask.filter((ele) => ele !== id);
-        setselectedTask(newArr)
+    if (selectedTask.includes(id)) {
+      const newArr = selectedTask.filter((ele) => ele !== id);
+      setselectedTask(newArr);
+    } else {
+      setselectedTask((prev) => {
+        return [...prev, id];
+      });
     }
-    setIsSelected(!isSelected);
   };
   return (
     <div
       className={`select-task-btn`}
       onClick={() => updateSelection()}
     >
-      {isSelected ? <BsCheckCircleFill /> : <BsCheckCircle />}
+      { selectedTask.includes(id) ? <BsCheckCircleFill /> : <BsCheckCircle /> }
     </div>
   );
 };
