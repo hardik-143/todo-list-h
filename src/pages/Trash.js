@@ -12,7 +12,7 @@ const Trash = () => {
     // eslint-disable-next-line
   }, []);
   return (
-    <div className="margin-top-50">
+    <div className="margin-top-30">
       <div className={`tasks `}>
         {deletedNotes.length === 0 ? (
           <h2 className="title">No notes deleted</h2>

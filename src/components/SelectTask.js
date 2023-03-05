@@ -1,5 +1,5 @@
 import React from "react";
-import { BsCheckCircle, BsCheckCircleFill } from "react-icons/bs";
+import { TiTickOutline, TiTick } from "react-icons/ti";
 import { useAppContext } from "../AppContext";
 const SelectTask = ({ id }) => {
   const { selectedTask, setselectedTask } = useAppContext();
@@ -14,11 +14,8 @@ const SelectTask = ({ id }) => {
     }
   };
   return (
-    <div
-      className={`select-task-btn`}
-      onClick={() => updateSelection()}
-    >
-      { selectedTask.includes(id) ? <BsCheckCircleFill /> : <BsCheckCircle /> }
+    <div className={`select-task-btn`} onClick={() => updateSelection()}>
+      {selectedTask.includes(id) ? <TiTick /> : <TiTickOutline />}
     </div>
   );
 };

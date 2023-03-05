@@ -14,6 +14,7 @@ const AppProvider = ({ children }) => {
   const [archiveNotes, setArchiveNotes] = useState([]);
   const [selectedTask, setselectedTask] = useState([]);
   const [pathURL, setpathURL] = useState("");
+  const [pinnedTask, setpinnedTask] = useState([]);
 
   const [modalPos, setModalPos] = useState({
     top: 0,
@@ -39,6 +40,7 @@ const AppProvider = ({ children }) => {
   // get data from localStorage
   const getPreviousData = () => {
     let items = JSON.parse(localStorage.getItem("tasks"));
+    let pinned = JSON.parse(localStorage.getItem("pinnedTask"));
     if (items && items.length > 0) {
       let deleted = items.filter((ele) => {
         return ele.isDeleted;
@@ -49,6 +51,9 @@ const AppProvider = ({ children }) => {
       setAllNotes(items);
       setDeletedNotes(deleted);
       setArchiveNotes(archived);
+    }
+    if (pinned && pinned.length > 0) {
+      setpinnedTask(pinned);
     }
   };
   // get data from localStorage
@@ -73,7 +78,7 @@ const AppProvider = ({ children }) => {
   // create note function
 
   // archive note function
-  const archiveNoteFunc = (id, iArchive,isMultiple) => {
+  const archiveNoteFunc = (id, iArchive, isMultiple) => {
     cancelEditing();
     const obj = allNotes.map((el) => {
       if (isMultiple) {
@@ -87,6 +92,9 @@ const AppProvider = ({ children }) => {
         }
         return el;
       }
+    });
+    setpinnedTask(() => {
+      return pinnedTask.filter((ele) => ele !== id);
     });
     setAllNotes(obj);
     setNewLocalStorage(obj);
@@ -113,6 +121,9 @@ const AppProvider = ({ children }) => {
         }
         return el;
       }
+    });
+    setpinnedTask(() => {
+      return pinnedTask.filter((ele) => ele !== id);
     });
     setAllNotes(obj);
     setNewLocalStorage(obj);
@@ -267,6 +278,8 @@ const AppProvider = ({ children }) => {
         setpathURL,
         selectedTask,
         setselectedTask,
+        pinnedTask,
+        setpinnedTask,
       }}
     >
       {children}

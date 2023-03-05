@@ -4,7 +4,7 @@ import { useAppContext } from ".././AppContext";
 import { useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 const Tasks = () => {
-  const { getPreviousData, allNotes} = useAppContext();
+  const { getPreviousData, allNotes, pinnedTask } = useAppContext();
   const inner = useRef();
   useEffect(() => {
     getPreviousData();
@@ -22,13 +22,18 @@ const Tasks = () => {
       )}
       <div className="inner" ref={inner}>
         <div className="tasksWrapper">
+          {pinnedTask.length > 0 && <h2 className="title">others</h2>}
           <ResponsiveMasonry
             columnsCountBreakPoints={{ 350: 1, 500: 2, 800: 3, 900: 4 }}
           >
             <Masonry gutter={"10"}>
               {allNotes
                 .filter((ele) => {
-                  return !ele.isArchived && !ele.isDeleted;
+                  return (
+                    !ele.isArchived &&
+                    !ele.isDeleted &&
+                    !pinnedTask.includes(ele.id)
+                  );
                 })
                 .map((item, index) => {
                   return <SingleTask data={item} key={index} />;

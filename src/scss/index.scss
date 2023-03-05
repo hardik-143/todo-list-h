@@ -4,6 +4,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root {
+  --black: #181d31;
+}
 *::-webkit-scrollbar {
   display: none;
 }
@@ -58,10 +61,10 @@ button {
   height: 30px;
   font-size: 14px;
   padding: 0 10px;
-  background: #181d31;
+  background: var(--black);
   color: #fff;
   border-radius: 3px;
-  border: 1px solid #181d31;
+  border: 1px solid var(--black);
   text-transform: capitalize;
   box-shadow: 0px 3px 5px #20202049;
   transition: all 0.2s cubic-bezier(0.79, 1.14, 0.96, 0.99);
@@ -77,7 +80,7 @@ button {
   &:hover:not(:disabled) {
     box-shadow: none;
     background: none;
-    color: #181d31;
+    color: var(--black);
   }
 }
 .app > #menu {
@@ -152,7 +155,6 @@ button {
   }
 }
 // note wrapper
-
 // notes list
 .tasks {
   flex: 1;
@@ -170,127 +172,157 @@ button {
 
   .title {
     text-align: center;
-    color: #181d31;
+    color: var(--black);
   }
-  .tasksWrapper {
-    padding: 20px 10px 0;
-    @media screen and (max-width: 991px) {
-      padding: 0;
+}
+.pinnedTask-Wrapper {
+  width: 100%;
+  position: relative;
+  padding-bottom: 10px;
+}
+.tasksWrapper {
+  padding-top: 10px !important;
+  padding: 10px 10px 0;
+  @media screen and (max-width: 991px) {
+    padding: 0;
+  }
+  .title {
+    font-size: 20px;
+    margin-left: 10px;
+    margin-bottom: 0;
+    text-align: left;
+  }
+  .singleTask {
+    margin: 10px;
+    position: relative;
+    border-radius: 3px;
+    box-shadow: 0 4px 5px #a4a4a440;
+    padding: 0.75rem 1rem 0;
+    border: 1px solid #b8b8b8a1;
+    transition: box-shadow 0.2s linear;
+    user-select: none;
+    &.singleTaskHidden {
+      opacity: 0 !important;
+      visibility: hidden !important;
     }
-    .singleTask {
-      margin: 10px;
-      position: relative;
-      border-radius: 3px;
-      box-shadow: 0 4px 5px #a4a4a440;
-      padding: 0.75rem 1rem 0;
-      border: 1px solid #b8b8b8a1;
-      transition: box-shadow 0.2s linear;
-      user-select: none;
-      &.singleTaskHidden {
-        opacity: 0 !important;
-        visibility: hidden !important;
-      }
-      &:hover {
-        box-shadow: 0 4px 10px #20202040;
-        @media screen and (min-width: 992px) {
-          .taskFunctions {
-            opacity: 1 !important;
-            visibility: visible !important;
-          }
-        }
-      }
-      .select-task-btn{
-        width: 26px;
-        height: 26px;
-        position: absolute;
-        top: -13px;
-        left: -13px;
-        font-size: 20px;
-        display: none;
-        place-items: center;
-        color: #181d31;
-        border: 1px solid transparent;
-        background: #fff;
-        border-radius: 50%;
-        transition: all 0.2s cubic-bezier(0.69, 0.77, 0.68, 0.98);
-      }
-      &:hover{
-        .select-task-btn{
-          display: grid;
-        }
-      }
-      &.selected{
-        .select-task-btn{
-          display: grid !important;
-          border-color: #181d31;
-          top: -7px;
-          left: -7px;
-        }
-      }
-      .taskName {
-        margin: 0;
-        font-size: 1rem;
-        letter-spacing: 0.9px;
-        font-weight: 500;
-        text-transform: capitalize;
-        flex-grow: 1;
-        margin-right: 0.875rem;
-        line-height: 24px;
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-      .open-taskFunctions {
-        height: 35px;
-        font-size: 18px;
-        width: 35px;
-        display: grid;
-        place-items: center;
-        margin: 5px -10px 5px;
-        &.hide {
-          display: none;
-        }
-      }
-      .taskFunctions {
-        height: 35px;
-        display: flex;
-        position: relative;
-        justify-content: flex-start;
-        align-items: center;
-        &.alwaysOpen {
-          display: inline-flex !important;
+    &:hover {
+      box-shadow: 0 4px 10px #20202040;
+      @media screen and (min-width: 992px) {
+        .taskFunctions {
           opacity: 1 !important;
           visibility: visible !important;
         }
-        @media screen and (min-width: 992px) {
-          opacity: 0;
-          visibility: hidden;
+      }
+    }
+    .select-task-btn,
+    .pin-task-btn {
+      width: 26px;
+      height: 26px;
+      position: absolute;
+      top: -13px;
+      left: -13px;
+      font-size: 20px;
+      display: none;
+      place-items: center;
+      color: var(--black);
+      border: 2px solid transparent;
+      background: #fff;
+      border-radius: 50%;
+      transition: all 0.2s cubic-bezier(0.69, 0.77, 0.68, 0.98);
+    }
+    .pin-task-btn {
+      left: unset;
+      right: -13px;
+    }
+    .pin-task-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+    &:hover {
+      .select-task-btn,
+      .pin-task-btn {
+        display: grid;
+      }
+    }
+    &.selected {
+      .select-task-btn {
+        display: grid !important;
+        border-color: var(--black);
+        top: -7px;
+        left: -7px;
+      }
+    }
+    &.pinned {
+      .pin-task-btn {
+        display: grid !important;
+        border-color: var(--black);
+        top: -7px;
+        right: -7px;
+      }
+    }
+    .taskName {
+      margin: 0;
+      font-size: 1rem;
+      letter-spacing: 0.9px;
+      font-weight: 500;
+      text-transform: capitalize;
+      flex-grow: 1;
+      margin-right: 0.875rem;
+      line-height: 24px;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .open-taskFunctions {
+      height: 35px;
+      font-size: 18px;
+      width: 35px;
+      display: grid;
+      place-items: center;
+      margin: 5px -10px 5px;
+      &.hide {
+        display: none;
+      }
+    }
+    .taskFunctions {
+      height: 35px;
+      display: flex;
+      position: relative;
+      justify-content: flex-start;
+      align-items: center;
+      &.alwaysOpen {
+        display: inline-flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+      @media screen and (min-width: 992px) {
+        opacity: 0;
+        visibility: hidden;
+      }
+      @media screen and (max-width: 991px) {
+        &:not(.show) {
+          display: none;
         }
-        @media screen and (max-width: 991px) {
-          &:not(.show) {
-            display: none;
-          }
-        }
-        flex-direction: column;
-        align-items: flex-start;
-        transition: all 0.2s linear;
-        background: #fff;
-        border-radius: 5px;
-        box-shadow: inset 0 0 5px #20202040;
-        padding: 0 5px;
-        margin: 5px -10px 5px;
-        z-index: 1;
-        .btns {
-          display: flex;
-          height: 35px;
-          align-items: center;
-          button {
-            font-size: 18px;
-            width: 25px;
-            height: 25px;
-            margin-right: 2px;
-          }
+      }
+      flex-direction: column;
+      align-items: flex-start;
+      transition: all 0.2s linear;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: inset 0 0 5px #20202040;
+      padding: 0 5px;
+      margin: 5px -10px 5px;
+      z-index: 1;
+      .btns {
+        display: flex;
+        height: 35px;
+        align-items: center;
+        button {
+          font-size: 18px;
+          width: 25px;
+          height: 25px;
+          margin-right: 2px;
         }
       }
     }
@@ -388,6 +420,3 @@ button.colorTask {
     }
   }
 }
-
-
-

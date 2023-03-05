@@ -145,7 +145,7 @@ nav {
       text-align: left;
     }
     &:hover , &.active{
-      background: #181d31;
+      background: var(--black);
       color: #fff;
     }
   }
@@ -168,11 +168,17 @@ nav {
 }
 
 .selectedCount{
-  background: var(--black);
   display: inline-flex;
   align-items: flex-end;
   span{
     font-weight: bold;
     margin-left: 8px;
+  }
+}
+.MultiFunctionButton{
+  &.square{
+    padding: 0;
+    width: 30px;
+    height: 30px;
   }
 }
