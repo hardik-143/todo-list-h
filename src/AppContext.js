@@ -63,7 +63,6 @@ const AppProvider = ({ children }) => {
     let obj = {
       id: new Date(),
       task: value,
-      isPinned: false,
       background: "#fff",
       color: "#303030",
       isDeleted: false,
@@ -117,14 +116,19 @@ const AppProvider = ({ children }) => {
         return el;
       } else {
         if (el.id === id) {
+          setpinnedTask(() => {
+            return pinnedTask.filter((ele) => ele !== el.id);
+          });
           return { ...el, isDeleted: true };
         }
         return el;
       }
     });
-    setpinnedTask(() => {
-      return pinnedTask.filter((ele) => ele !== id);
-    });
+    if(isMultiple){
+      setpinnedTask(() => {
+        return pinnedTask.filter((ele) => !selectedTask.includes(ele));
+      });
+    }
     setAllNotes(obj);
     setNewLocalStorage(obj);
     let deleted = obj.filter((ele) => {

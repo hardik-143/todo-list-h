@@ -2,10 +2,12 @@ import React from "react";
 import { useRef } from "react";
 import { useAppContext } from "../AppContext";
 import useAutosizeTextArea from "../hooks/useAutosizeTextarea";
+import useWindowDimensions from "../hooks/useWindowdimensions";
 
 const $ = require("jquery");
 
 const Wrapper = () => {
+  const { width } = useWindowDimensions();
   const { setValue, value, addTask, inpfocus, setInpfocus, setsideBarOpen } =
     useAppContext();
   const inputElement = useRef();
@@ -29,7 +31,9 @@ const Wrapper = () => {
           onInput={(e) => changeValue(e)}
           onFocus={() => {
             setInpfocus(true);
-            setsideBarOpen(false);
+            if (width < 991) {
+              setsideBarOpen(false);
+            }
           }}
           onBlur={() => inpBlurred()}
           placeholder="Make a note"

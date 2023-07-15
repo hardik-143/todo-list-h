@@ -22,7 +22,7 @@ const Tasks = () => {
       )}
       <div className="inner" ref={inner}>
         <div className="tasksWrapper">
-          {pinnedTask.length > 0 && <h2 className="title">others</h2>}
+          {pinnedTask.length > 0 && <h2 className="title">others notes</h2>}
           <ResponsiveMasonry
             columnsCountBreakPoints={{ 350: 1, 500: 2, 800: 3, 900: 4 }}
           >

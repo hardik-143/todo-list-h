@@ -3,12 +3,16 @@ import { useAppContext } from "../AppContext";
 import { Link } from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { BiArchiveIn, BiTask } from "react-icons/bi";
+import useWindowDimensions from "../hooks/useWindowdimensions";
 const Sidebar = () => {
+  const { width } = useWindowDimensions();
   const { pathURL } = useAppContext();
 
-  const { sideBarOpen, setsideBarOpen, setselectedTask  } = useAppContext();
+  const { sideBarOpen, setsideBarOpen, setselectedTask } = useAppContext();
   const pagechange = () => {
-    setsideBarOpen(false);
+    if(width <= 991) {
+      setsideBarOpen(false);
+    }
     setselectedTask([]);
   };
   return (

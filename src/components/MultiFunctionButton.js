@@ -11,7 +11,7 @@ const MultiFunctionButton = () => {
   if (pathURL === "/trash") {
     return (
       <button
-        className={`button danger MultiFunctionButton ${width <= 350 ? "square" : ""} `}
+        className={`button blue MultiFunctionButton ${width <= 350 ? "square" : ""} `}
         onClick={() => restoreNoteFunc(0, true)}
       >
         {

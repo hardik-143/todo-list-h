@@ -97,13 +97,6 @@ const SingleTask = ({ data }) => {
           >
             <BsFillTrashFill />
           </button>
-
-          {/* <button
-            className="pinTask tf-btn"
-            onClick={() => pinTask(id, isPinned)}
-          >
-            {isPinned ? <BsPinAngleFill /> : <BsPinAngle />}
-          </button> */}
           <button
             className={`colorTask tf-btn ${openPalette ? "rotate" : ""}`}
             onClick={() => setopenPalette(!openPalette)}

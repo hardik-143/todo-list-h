@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAppContext } from '../AppContext';
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -9,10 +10,12 @@ function getWindowDimensions() {
 }
 
 export default function useWindowDimensions() {
+  const { setsideBarOpen } = useAppContext();
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
   useEffect(() => {
     function handleResize() {
+      setsideBarOpen(false);
       setWindowDimensions(getWindowDimensions());
     }
 

@@ -77,6 +77,15 @@ button {
       color: #dc3535 !important;
     }
   }
+  &.blue {
+    margin-left: 10px;
+    background: #068FFF;
+    border-color: #068FFF;
+    color: #fff;
+    &:hover {
+      color: #068FFF !important;
+    }
+  }
   &:hover:not(:disabled) {
     box-shadow: none;
     background: none;
@@ -123,7 +132,7 @@ button {
   background: #fff;
   box-shadow: 0 2px 3px rgb(0, 0, 0, 0.1);
   border-radius: 5px;
-  border: 1px solid #181d31;
+  border: 1px solid #181d317a;
   margin: 0 auto 30px;
   box-shadow: 0 4px 10px #20202040;
 
@@ -195,11 +204,10 @@ button {
   .singleTask {
     margin: 10px;
     position: relative;
-    border-radius: 3px;
-    border: 1px solid #181d31;
+    border-radius: 4px;
+    border: 1px solid #181d317a;
     box-shadow: 0 4px 5px #a4a4a440;
     padding: 0.75rem 1rem 0;
-    // border: 1px solid #b8b8b8a1;
     transition: box-shadow 0.2s linear;
     user-select: none;
     &.singleTaskHidden {
@@ -226,7 +234,7 @@ button {
       display: none;
       place-items: center;
       color: var(--black);
-      border: 2px solid transparent;
+      border: 1px solid #181d317a;
       background: #fff;
       border-radius: 50%;
       transition: all 0.2s cubic-bezier(0.69, 0.77, 0.68, 0.98);
@@ -311,7 +319,7 @@ button {
       transition: all 0.2s linear;
       background: #fff;
       border-radius: 5px;
-      box-shadow: inset 0 0 5px #20202040;
+      box-shadow: inset 0 0 5px #2020208c;
       padding: 0 5px;
       margin: 5px -10px 5px;
       z-index: 1;
@@ -334,22 +342,19 @@ button {
 button.deleteTask {
   color: #dc3535;
   &:hover {
-    color: #fff;
-    background: #181d31;
+    color: #181d31;
   }
 }
 button.restoreTask {
   color: #227c70;
   &:hover {
-    color: #fff;
-    background: #181d31;
+    color: #181d31;
   }
 }
 button.archiveTask {
   color: #227c70;
   &:hover {
-    color: #fff;
-    background: #181d31;
+    color: #181d31;
   }
 }
 button.colorTask {
@@ -361,8 +366,7 @@ button.colorTask {
     transform: rotate(180deg);
   }
   &:hover {
-    color: #fff;
-    background: #181d31;
+    color: #181d31;
   }
 }
 .tf-btn {
