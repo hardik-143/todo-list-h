@@ -90,7 +90,8 @@ nav {
   justify-content: space-between;
   z-index: 10;
   box-shadow: 2px 0 2px #20202050;
-  background: #fff6bd;
+  border-bottom: 2px solid #1c315e;
+  background: #F5F5F5;
 }
 .sidebar {
   padding: 7px;
@@ -107,8 +108,10 @@ nav {
   height: calc(100vh - 50px);
   position: fixed;
   top: 50px;
-  background: #fff6bd;
+  background: #F5F5F5;
   left: 0;
+  border-right: 2px solid #1c315e;  
+  border-bottom: 2px solid #1c315e;  
   @media screen and (max-width: 991px) {
     height: auto;
     left: 0;

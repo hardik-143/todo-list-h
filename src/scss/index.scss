@@ -89,7 +89,7 @@ button {
   left: 20px;
 }
 .main-wrapper {
-  background: #a5f1e9;
+  background: #D0F5BE;
   padding: 60px 10px 10px;
   height: 100vh;
   flex-grow: 1;
@@ -123,7 +123,7 @@ button {
   background: #fff;
   box-shadow: 0 2px 3px rgb(0, 0, 0, 0.1);
   border-radius: 5px;
-  border: 1px solid #c2c2c2;
+  border: 1px solid #181d31;
   margin: 0 auto 30px;
   box-shadow: 0 4px 10px #20202040;
 
@@ -196,9 +196,10 @@ button {
     margin: 10px;
     position: relative;
     border-radius: 3px;
+    border: 1px solid #181d31;
     box-shadow: 0 4px 5px #a4a4a440;
     padding: 0.75rem 1rem 0;
-    border: 1px solid #b8b8b8a1;
+    // border: 1px solid #b8b8b8a1;
     transition: box-shadow 0.2s linear;
     user-select: none;
     &.singleTaskHidden {
@@ -334,34 +335,34 @@ button.deleteTask {
   color: #dc3535;
   &:hover {
     color: #fff;
-    background: #dc3535;
+    background: #181d31;
   }
 }
 button.restoreTask {
   color: #227c70;
   &:hover {
     color: #fff;
-    background: #227c70;
+    background: #181d31;
   }
 }
 button.archiveTask {
   color: #227c70;
   &:hover {
     color: #fff;
-    background: #227c70;
+    background: #181d31;
   }
 }
 button.colorTask {
   color: #169b21;
   svg {
-    transition: all 0.2s cubic-bezier(0.69, 0.77, 0.68, 0.98);
+    transition: transform 0.2s cubic-bezier(0.69, 0.77, 0.68, 0.98);
   }
   &.rotate svg {
     transform: rotate(180deg);
   }
   &:hover {
     color: #fff;
-    background: #169b21;
+    background: #181d31;
   }
 }
 .tf-btn {
