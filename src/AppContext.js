@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 const AppContext = React.createContext();
 const $ = require("jquery");
 const AppProvider = ({ children }) => {
+  const inputElement = useRef();
   const [allNotes, setAllNotes] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState("");
@@ -246,6 +247,7 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        inputElement,
         allNotes,
         setAllNotes,
         isEditing,

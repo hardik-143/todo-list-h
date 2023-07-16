@@ -1,5 +1,4 @@
 import React from "react";
-import { useRef } from "react";
 import { useAppContext } from "../AppContext";
 import useAutosizeTextArea from "../hooks/useAutosizeTextarea";
 import useWindowDimensions from "../hooks/useWindowdimensions";
@@ -8,9 +7,8 @@ const $ = require("jquery");
 
 const Wrapper = () => {
   const { width } = useWindowDimensions();
-  const { setValue, value, addTask, inpfocus, setInpfocus, setsideBarOpen } =
+  const { setValue, value, addTask, inpfocus, setInpfocus, setsideBarOpen,inputElement } =
     useAppContext();
-  const inputElement = useRef();
   useAutosizeTextArea(inputElement.current, value);
   const changeValue = (e) => {
     setValue(e.target.value);

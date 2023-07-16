@@ -3,8 +3,10 @@ import { useAppContext } from "../AppContext";
 import "../scss/navbar.scss";
 import MultiFunctionButton from "./MultiFunctionButton";
 import Sidebar from "./Sidebar";
+import { Link } from "react-router-dom";
 const Navbar = () => {
-  const { sideBarOpen, setsideBarOpen, selectedTask } = useAppContext();
+  const { sideBarOpen, setsideBarOpen, selectedTask, setInpfocus, pathURL ,inputElement} =
+    useAppContext();
   return (
     <nav>
       <div className="left">
@@ -22,12 +24,29 @@ const Navbar = () => {
         </button>
       </div>
       <div className="right">
-        {selectedTask.length > 0 && (
+        {selectedTask.length > 0 ? (
           <>
             <span className="selectedCount">
               selected : <span>{selectedTask.length}</span>
             </span>
             <MultiFunctionButton />
+          </>
+        ) : (
+          <>
+            {pathURL !== "/" && (
+              <Link
+                to="/"
+                className={`button`}
+                onClick={() => {
+                  setTimeout(() => {
+                  inputElement.current.focus();
+                  setInpfocus(true);
+                  }, 100);
+                }}
+              >
+                create note
+              </Link>
+            )}
           </>
         )}
       </div>

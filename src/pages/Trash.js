@@ -4,21 +4,18 @@ import { useAppContext } from "../AppContext";
 import TrashTask from "../components/TaskType/TrashTask";
 
 const Trash = () => {
-  const { getPreviousData, deletedNotes, setpathURL } =
-    useAppContext();
+  const { getPreviousData, deletedNotes, setpathURL } = useAppContext();
   useEffect(() => {
     getPreviousData();
-    setpathURL('/trash')
+    setpathURL("/trash");
     // eslint-disable-next-line
   }, []);
   return (
     <div className="margin-top-30">
       <div className={`tasks `}>
-        {deletedNotes.length === 0 ? (
-          <h2 className="title">No notes deleted</h2>
-        ) : (
-          ""
-        )}
+        <h2 className="title">
+          {deletedNotes.length === 0 ? "No notes deleted" : "Deleted notes"}
+        </h2>
         <div className="inner">
           <div className="tasksWrapper">
             <ResponsiveMasonry

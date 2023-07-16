@@ -57,6 +57,10 @@ button {
     width: 100%;
   }
 }
+a.button{
+  display: inline-block;
+  line-height: 28px;
+}
 .button {
   height: 30px;
   font-size: 14px;
@@ -68,6 +72,15 @@ button {
   text-transform: capitalize;
   box-shadow: 0px 3px 5px #20202049;
   transition: all 0.2s cubic-bezier(0.79, 1.14, 0.96, 0.99);
+  &.green {
+    margin-left: 10px;
+    background: #5cb85c;
+    border-color: #5cb85c;
+    color: #fff;
+    &:hover {
+      color: #5cb85c !important;
+    }
+  }
   &.danger {
     margin-left: 10px;
     background: #dc3535;
@@ -203,6 +216,9 @@ button {
   }
   .singleTask {
     margin: 10px;
+    @media screen and (max-width: 991px) {
+      margin: 15px;
+    }
     position: relative;
     border-radius: 4px;
     border: 1px solid #181d317a;
